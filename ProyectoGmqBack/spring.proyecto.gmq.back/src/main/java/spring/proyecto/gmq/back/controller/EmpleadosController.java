@@ -65,6 +65,11 @@ public class EmpleadosController {
 			//return new ResponseEntity<Empleados>(empleado, HttpStatus.OK);
 		}
 	}
+	@GetMapping("token/{telefono}")
+	
+	public List<Empleados> solicitarToken(@PathVariable String telefono){
+		return service.findByTelefono(telefono);
+	}
 	
 	//Metodo para mostrar todas las nominas de un empleado
 	@GetMapping("/verNominas/{id}")

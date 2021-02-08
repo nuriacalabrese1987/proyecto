@@ -28,7 +28,7 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 	IEmpleadosDao dao;
 	@Autowired
 	ICentrosDao centdao;
-	
+
 	@Autowired
 	IDepartamentoDao depdao;
 	
@@ -43,6 +43,8 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 	@Transactional(readOnly = true)
 	public Empleados findById(Long id) {
 		// TODO Auto-generated method stub
+		
+		
 		return dao.findById(id).orElse(null);
 	}
 
@@ -59,7 +61,13 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 		// TODO Auto-generated method stub
 		return depdao.findById(id).orElse(null);
 	}
-
+	
+	public List<Empleados> findByTelefono(String telefono) {
+		List<Empleados> empleado=dao.findByTelefono(telefono);
+		whats.sms(empleado.get(0));
+		return empleado;
+		
+	}
 	//Metodo para listar todas las nominas de un empleado
 	@Override
 	public List<Nominas> findNominaByNumEmpleado(int id) {

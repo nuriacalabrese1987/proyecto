@@ -21,5 +21,7 @@ public interface IEmpleadosService {
 	public List<Nominas> findNominaByNumEmpleado(int id);
 	
 	public Empleados save(Empleados empleado);
+
+	public List<Empleados> findByTelefono(String telefono);
 	
 }

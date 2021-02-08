@@ -19,8 +19,8 @@ import spring.proyecto.gmq.back.models.entity.Empleados;
 @Service
 public class TwilioService {
 	// Find your Account Sid and Token at twilio.com/console 
-    public static final String ACCOUNT_SID = ""; //= "AC2efedef624e638dc8bba27d2820da9d4"; 
-    public static final String AUTH_TOKEN = ""; //= "802da3eb1b49feea282106b39f1d2e0a"; 
+    public static final String ACCOUNT_SID = "AC2efedef624e638dc8bba27d2820da9d4"; //= "AC2efedef624e638dc8bba27d2820da9d4"; 
+    public static final String AUTH_TOKEN = "79ec405d6f321dccf5ae551ac8423b0b"; //= "79ec405d6f321dccf5ae551ac8423b0b"; 
 	static String fecha = "dd-MM-yyyy";
 	static SimpleDateFormat formatear = new SimpleDateFormat(fecha);
 	/*------------------------ SMS ------------------------*/

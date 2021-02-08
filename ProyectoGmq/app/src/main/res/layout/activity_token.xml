@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/corte3"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".TokenActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +64,6 @@
                     android:background="@drawable/edittext"
                     android:ems="10"
                     android:hint="Introduzca el telefono"
-                    android:inputType="phone"
                     android:paddingLeft="15px"
                     android:textColorHint="@color/black" />
 
@@ -100,7 +99,7 @@
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,18 +130,19 @@
                             android:layout_weight="1"
                             android:background="@drawable/button"
                             android:backgroundTint="@color/corte"
+                            android:onClick="volver"
                             android:text="SOLICITAR "
                             app:iconTint="@color/corte" />
 
                         <Space
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="6" />
+                            android:layout_weight="5" />
 
                         <Space
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="15" />
+                            android:layout_weight="20" />
 
                     </LinearLayout>
 
