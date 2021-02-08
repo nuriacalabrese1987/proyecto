@@ -35,14 +35,13 @@ public class detectarCaraArray {
 		String valorIDImagen1 = null; //Variable para recoger el id de la iamgen
 		
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		System.out.println("Hemos creado HTTPClient...");
+		//System.out.println("Hemos creado HTTPClient...");
 		
 		try {
 			
 			URIBuilder builder = new URIBuilder(EndpointAzure + "/face/v1.0/detect");
-			System.out.println("Hemos creado un builder con que encuentre caras similares...");
+			//System.out.println("Hemos creado un builder con que encuentre caras similares...");
 
-			
 			//REQUEST parametros
 			
 			builder.setParameter("detectionModel", "detection_01");
@@ -54,34 +53,36 @@ public class detectarCaraArray {
 			//builder.setParameter("returnRecognitionModel", "true");
 			//builder.setParameter("returnFaceListId", "true");
 			
-			System.out.println("Hemos establecido que devuelva el ID de dos caras...");
+			System.out.println("Hemos establecido que devuelva el ID de la cara...");
 
 			//Preparamos URI para la llamada API REST
 			URI uri = builder.build();
+			
 			HttpPost request = new HttpPost(uri);
 			
-			System.out.println("Hemos enviado llamada 1 y 2 de API REST...");
+			System.out.println("Hemos enviado llamada 2 de API REST...");
 			
 			//RequestHeader
 			request.setHeader("Content-Type", "application/octet-stream");
 			request.setHeader("Ocp-Apim-Subscription-Key", LlaveAzure);
 						
 			//Establecemos el tipo de valor a devolver
-			//StringEntity reqEntity = new StringEntity(Imagen1);
 			
 			ByteArrayEntity reqEntityPrueba = new ByteArrayEntity(Imagen);
+			
 			request.setEntity(reqEntityPrueba);
-				System.out.println("Se esta leyendo la imagen 2...");
+			
+			System.out.println("Se esta leyendo la imagen 2 ...");
 				
 			
 			//Ejecutamos el API REST y obtenemos la respuesta
 			HttpResponse responde1 = httpClient.execute(request);
 			HttpEntity entity1 = responde1.getEntity();
-				System.out.println("Hemos obtenido la priemra respuesta de la imagen 2");
+			
+			System.out.println("Hemos obtenido la priemra respuesta de la imagen 2 (bytes)");
 			
 				if (entity1 != null)
-            	{
-                	// Format and display the JSON response.
+            	{           
                 	System.out.println("REST Response:\n");
                 	jsonString = EntityUtils.toString(entity1).trim();
                 	

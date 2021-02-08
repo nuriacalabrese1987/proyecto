@@ -40,12 +40,12 @@ public class detectarCaraURL {
 		
 		//Creamos un HttpClient
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		System.out.println("Hemos creado HTTPClient...");
+		//System.out.println("Hemos creado HTTPClient...");
 		
 		try {
 			
 			URIBuilder builder = new URIBuilder(EndpointAzure + "/face/v1.0/detect");
-			System.out.println("Hemos creado un builder con que encuentre caras similares...");
+			//System.out.println("Hemos creado un builder con que encuentre la cara en la URL imagen...");
 	
 			
 			//REQUEST parametros
@@ -59,13 +59,13 @@ public class detectarCaraURL {
 			//builder.setParameter("returnRecognitionModel", "true");
 			//builder.setParameter("returnFaceListId", "true");
 			
-			System.out.println("Hemos establecido que devuelva el ID de dos caras...");
-	
+			System.out.println("Hemos establecido que devuelva el ID de la cara...");
+			
 			//Preparamos URI para la llamada API REST
 			URI uri = builder.build();
 			HttpPost request = new HttpPost(uri);
 			
-			System.out.println("Hemos enviado llamada 1 y 2 de API REST...");
+			System.out.println("Hemos enviado llamada 1 de API REST...");
 			
 			//RequestHeader
 			request.setHeader("Content-Type", "application/json");
@@ -80,7 +80,7 @@ public class detectarCaraURL {
 			//Ejecutamos el API REST y obtenemos la respuesta
 			HttpResponse responde1 = httpClient.execute(request);
 			HttpEntity entity1 = responde1.getEntity();
-				System.out.println("Hemos obtenido la priemra respuesta de la imagen 1");
+			System.out.println("Hemos obtenido la priemra respuesta de la imagen 1 (URL)");
 			
 				if (entity1 != null)
 	        	{
