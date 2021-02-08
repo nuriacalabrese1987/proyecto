@@ -18,7 +18,6 @@ import java.util.Map;
 import spring.proyecto.gmq.back.models.entity.Centros;
 import spring.proyecto.gmq.back.models.entity.Departamentos;
 import spring.proyecto.gmq.back.models.entity.Empleados;
-import spring.proyecto.gmq.back.models.entity.Nominas;
 import spring.proyecto.gmq.back.models.service.EmpleadosServiceImp;
 import spring.proyecto.gmq.back.models.service.ICentrosService;
 import spring.proyecto.gmq.back.models.service.IDepartamentosService;
