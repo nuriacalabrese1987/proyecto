@@ -14,10 +14,6 @@ public interface IEmpleadosService {
 
 	public Empleados findById(Long id);
 	
-	public Centros findCentroById(Long id);
-	
-	public Departamentos findDepById(Long id);
-	
 	public List<Nominas> findNominaByNumEmpleado(int id);
 	
 	public Empleados save(Empleados empleado);

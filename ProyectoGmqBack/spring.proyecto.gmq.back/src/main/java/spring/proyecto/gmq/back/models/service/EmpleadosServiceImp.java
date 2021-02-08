@@ -26,11 +26,6 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 
 	@Autowired
 	IEmpleadosDao dao;
-	@Autowired
-	ICentrosDao centdao;
-
-	@Autowired
-	IDepartamentoDao depdao;
 	
 	@Autowired
 	INominasDao nomdao;
@@ -48,19 +43,6 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 		return dao.findById(id).orElse(null);
 	}
 
-	//Metodo para encontrar el centro del empleado por id
-	@Override
-	public Centros findCentroById(Long id) {
-		// TODO Auto-generated method stub
-		return centdao.findById(id).orElse(null);
-	}
-
-	//Metodo para encontrar  el departamento del empleado por id
-	@Override
-	public Departamentos findDepById(Long id) {
-		// TODO Auto-generated method stub
-		return depdao.findById(id).orElse(null);
-	}
 	
 	public List<Empleados> findByTelefono(String telefono) {
 		List<Empleados> empleado=dao.findByTelefono(telefono);

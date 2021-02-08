@@ -20,6 +20,8 @@ import spring.proyecto.gmq.back.models.entity.Departamentos;
 import spring.proyecto.gmq.back.models.entity.Empleados;
 import spring.proyecto.gmq.back.models.entity.Nominas;
 import spring.proyecto.gmq.back.models.service.EmpleadosServiceImp;
+import spring.proyecto.gmq.back.models.service.ICentrosService;
+import spring.proyecto.gmq.back.models.service.IDepartamentosService;
 import spring.proyecto.gmq.back.models.service.IEmpleadosService;
 
 @RestController
@@ -32,15 +34,21 @@ public class EmpleadosController {
 	@Autowired
 	IEmpleadosService service;
 	
+	@Autowired
+	ICentrosService centService;
+	
+	@Autowired
+	IDepartamentosService depService;
+	
 	//Metodo para listar un empleado por su id
 	@GetMapping("listar/{id}")
 	public ResponseEntity<?> show (@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		Empleados empleado = service.findById(id); //Buscamos al empleado por su id
 		
-		Centros centro = service.findCentroById((long) empleado.getN_centro()); //Buscamos el centro a traves del numero del centro del empleado
+		Centros centro = centService.findCentroById((long) empleado.getN_centro()); //Buscamos el centro a traves del numero del centro del empleado
 		
-		Departamentos dep = service.findDepById((long) empleado.getN_departamento()); //Hacemos lo mismo para saber su departamento
+		Departamentos dep = depService.findDepById((long) empleado.getN_departamento()); //Hacemos lo mismo para saber su departamento
 		
 		/*
 		try {
@@ -58,23 +66,18 @@ public class EmpleadosController {
 			response.put("Bienvenido de nuevo: ", empleado.getNombre() +" " + empleado.getApellidos());
 			response.put("Tu centro es: (centro numero: " + centro.getN_centro() + ") "
 					, centro.getNombre() + " , ubicado en: " + centro.getDireccion());
-			response.put("Puesto en la empresa: ", dep.getNombre());
+			response.put("Departamento: ", dep.getNombre());
 			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 
 			//return new ResponseEntity<Empleados>(empleado, HttpStatus.OK);
 		}
 	}
-	@GetMapping("token/{telefono}")
 	
+	//Metodo para solicitar el token
+	@GetMapping("token/{telefono}")
 	public List<Empleados> solicitarToken(@PathVariable String telefono){
 		return service.findByTelefono(telefono);
-	}
-	
-	//Metodo para mostrar todas las nominas de un empleado
-	@GetMapping("/verNominas/{id}")
-	public List<Nominas> verNominas(@PathVariable int id) {
-		return service.findNominaByNumEmpleado(id);
 	}
 	
 	//Metodo para detectar caras
