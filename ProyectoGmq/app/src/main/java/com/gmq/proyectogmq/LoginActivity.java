@@ -1,6 +1,8 @@
 package com.gmq.proyectogmq;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,13 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.dbConnection;
 
 import java.io.Serializable;
+import java.util.concurrent.Executor;
 
 public class LoginActivity extends AppCompatActivity implements Serializable {
      Button button;
@@ -36,12 +43,11 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         SQLiteDatabase db = conection.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from " + Apis.TABLA_EMPLEADO, null);
         while (cursor.moveToNext()) {
-            token = cursor.getString(0);
+            token = cursor.getString(8);
         }
         if (token == null) {
 
            solicitarToken();
-
 
         } else {
 
@@ -63,15 +69,81 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
             }
 
         }
+
+        //Ya creamos la comprobación de que el dispositivo tenga o no sensor de huellas ahora haremos
+        //El cuadro de diálogo de la biometría.
+        //Primero haremos un ejecutor.
+        Executor executor = ContextCompat.getMainExecutor(this);
+        //Ahora haremos un callback del prompt.
+        //Eso nos dirá si podemos logearnos o no.
+        BiometricPrompt biometricPrompt = new BiometricPrompt(LoginActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override//Este método es llamado mientras ocurra un error en la autenticación.
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+            }
+
+            @Override//Este método es llamado cuando el inicio de sesión sea el correcto.
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent dos = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(dos);
+                    }
+                }, 2000);
+                Toast.makeText(getApplicationContext(), "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override//Este método es llamado cuando el inicio de sesión falla.
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+            }
+        });
+
+        //Ahora creamos nuestro diálogo de la Biometría.
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Inicio sesión")
+                .setDescription("Usa tu sensor de huella dactilar para iniciar sesión")
+                .setNegativeButtonText("Cancelar")
+                .build();
+
+
+
+        biometricPrompt.authenticate(promptInfo);
     }
 
+
+    //-------------------------------- PASAMOS A SOLICITAR EL TOKEN Y LEERLO --------------------------------
         private void solicitarToken() {
             String mensaje="Introduzca su telefono";
             pass.setVisibility(View.INVISIBLE);
             telefono.setText(mensaje);
 
+            comprobarPermisosSms();
+            requestSMSPermission();
+            new OTP_Receiver().setEditText(pass);
+
          }
 
+         //Comprueba los permisos
+    private void comprobarPermisosSms() {
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
+        }
+    }
+    //Muestra el cuadro de dialogo para que los aceptes en el movil
+    private void requestSMSPermission() {
+        String permission = Manifest.permission.RECEIVE_SMS;
+
+        int grant = ContextCompat.checkSelfPermission(this, permission);
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            String[] permission_list = new String[1];
+            permission_list[0] = permission;
+            ActivityCompat.requestPermissions(this, permission_list, 1);
+        }
+    }
 
     /*public void token(View view){
         Intent token = new Intent(LoginActivity.this, TokenActivity.class );
