@@ -98,7 +98,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextTextPassword"
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -140,22 +140,10 @@
                             android:text="ACCEDER"
                             app:iconTint="@color/corte" />
 
-                        <Button
-                            android:id="@+id/button2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:background="@android:color/transparent"
-                            android:onClick="token"
-                            android:text="Solicitar credenciales"
-                            android:textColor="@color/black"
-                            android:textSize="26px"
-                            android:textStyle="bold" />
-
                         <Space
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="20" />
+                            android:layout_weight="25" />
 
                     </LinearLayout>
 

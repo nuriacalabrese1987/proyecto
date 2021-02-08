@@ -16,9 +16,6 @@
             android:theme="@style/Theme.ProyectoGmq.NoActionBar">
 
         </activity>
-        <activity android:name=".TokenActivity"
-            android:theme="@style/Theme.ProyectoGmq.NoActionBar">
-        </activity>
         <activity
             android:name=".LoginActivity"
 
