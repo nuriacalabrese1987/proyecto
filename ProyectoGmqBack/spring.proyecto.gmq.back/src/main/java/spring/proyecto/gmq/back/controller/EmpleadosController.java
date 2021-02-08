@@ -20,6 +20,7 @@ import spring.proyecto.gmq.back.models.entity.Departamentos;
 import spring.proyecto.gmq.back.models.entity.Empleados;
 import spring.proyecto.gmq.back.models.entity.Nominas;
 import spring.proyecto.gmq.back.models.service.EmpleadosServiceImp;
+import spring.proyecto.gmq.back.models.service.IEmpleadosService;
 
 @RestController
 @RequestMapping("/empleados")
@@ -28,15 +29,18 @@ public class EmpleadosController {
 	@Autowired
 	EmpleadosServiceImp empservice;
 	
+	@Autowired
+	IEmpleadosService service;
+	
 	//Metodo para listar un empleado por su id
 	@GetMapping("listar/{id}")
 	public ResponseEntity<?> show (@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
-		Empleados empleado = empservice.findById(id); //Buscamos al empleado por su id
+		Empleados empleado = service.findById(id); //Buscamos al empleado por su id
 		
-		Centros centro = empservice.findCentroById((long) empleado.getN_centro()); //Buscamos el centro a traves del numero del centro del empleado
+		Centros centro = service.findCentroById((long) empleado.getN_centro()); //Buscamos el centro a traves del numero del centro del empleado
 		
-		Departamentos dep = empservice.findDepById((long) empleado.getN_departamento()); //Hacemos lo mismo para saber su departamento
+		Departamentos dep = service.findDepById((long) empleado.getN_departamento()); //Hacemos lo mismo para saber su departamento
 		
 		/*
 		try {
@@ -65,12 +69,17 @@ public class EmpleadosController {
 	//Metodo para mostrar todas las nominas de un empleado
 	@GetMapping("/verNominas/{id}")
 	public List<Nominas> verNominas(@PathVariable int id) {
-		return empservice.findNominaByNumEmpleado(id);
+		return service.findNominaByNumEmpleado(id);
 	}
 	
 	//Metodo para detectar caras
 	@PostMapping("/fichajeCara/{id}")
 	public ResponseEntity<?> comprobarCaraArray (@PathVariable Long id, @RequestBody String imagen) {
-		return null;
+		Empleados emp = empservice.findById(id);
+		System.out.println(emp.getUrl_storage());
+		
+		String imagen1 = emp.getUrl_storage();
+		
+		return empservice.comprobarCaras(imagen1, imagen);
 	}
 }
