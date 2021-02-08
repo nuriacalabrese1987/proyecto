@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 public class Fichajes {
 	
 	@Id
+	private Long n_fichaje;
+	
 	private Long id_empleado;
 	
 	private boolean estado;
@@ -24,6 +26,14 @@ public class Fichajes {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
+	public Long getN_fichaje() {
+		return n_fichaje;
+	}
+
+	public void setN_fichaje(Long n_fichaje) {
+		this.n_fichaje = n_fichaje;
+	}
+	
 	public Long getId_empleado() {
 		return id_empleado;
 	}
@@ -47,6 +57,8 @@ public class Fichajes {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
+
 	
 	
 }
