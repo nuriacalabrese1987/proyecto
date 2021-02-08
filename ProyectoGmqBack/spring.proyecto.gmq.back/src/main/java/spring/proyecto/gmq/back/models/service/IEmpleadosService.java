@@ -11,10 +11,10 @@ import spring.proyecto.gmq.back.models.entity.Nominas;
 
 @Service
 public interface IEmpleadosService {
+	
+	public List<Empleados> listar();
 
 	public Empleados findById(Long id);
-	
-	public List<Nominas> findNominaByNumEmpleado(int id);
 	
 	public Empleados save(Empleados empleado);
 

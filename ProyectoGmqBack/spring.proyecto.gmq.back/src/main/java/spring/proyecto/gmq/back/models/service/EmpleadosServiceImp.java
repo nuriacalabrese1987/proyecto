@@ -33,6 +33,11 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 	@Autowired
 	TwilioService whats;
 	
+	@Override
+	public List<Empleados> listar() {
+		// TODO Auto-generated method stub
+		return (List<Empleados>) dao.findAll();
+	}
 	//Metodo para encontrar al empleado por id
 	@Override
 	@Transactional(readOnly = true)
@@ -49,12 +54,6 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 		whats.sms(empleado.get(0));
 		return empleado;
 		
-	}
-	//Metodo para listar todas las nominas de un empleado
-	@Override
-	public List<Nominas> findNominaByNumEmpleado(int id) {
-		// TODO Auto-generated method stub
-		return nomdao.findNominaByNumEmpleado(id);
 	}
 
 	/*
@@ -84,7 +83,6 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 		
 		return rpta;
 	}
-	
 		
 	
 }

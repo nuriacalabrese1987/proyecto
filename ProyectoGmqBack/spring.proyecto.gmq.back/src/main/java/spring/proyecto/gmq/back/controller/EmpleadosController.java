@@ -40,8 +40,15 @@ public class EmpleadosController {
 	@Autowired
 	IDepartamentosService depService;
 	
+	
+	//Metodo para listar empleados
+	@GetMapping("/listar")
+	public List<Empleados> listar() {
+		return empservice.listar();
+	}
+	
 	//Metodo para listar un empleado por su id
-	@GetMapping("listar/{id}")
+	@GetMapping("/listar/{id}")
 	public ResponseEntity<?> show (@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		Empleados empleado = service.findById(id); //Buscamos al empleado por su id
