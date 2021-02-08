@@ -1,6 +1,7 @@
 package spring.proyecto.gmq.back.models.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 /*
  * Pojo centros
@@ -12,7 +13,8 @@ public class Centros {
 	
 	private String nombre;
 	
-	private int n_centro;
+	@Id
+	private Long n_centro;
 	
 	private String direccion;
 	
@@ -30,11 +32,11 @@ public class Centros {
 		this.nombre = nombre;
 	}
 
-	public int getN_centro() {
+	public Long getN_centro() {
 		return n_centro;
 	}
 
-	public void setN_centro(int n_centro) {
+	public void setN_centro(Long n_centro) {
 		this.n_centro = n_centro;
 	}
 

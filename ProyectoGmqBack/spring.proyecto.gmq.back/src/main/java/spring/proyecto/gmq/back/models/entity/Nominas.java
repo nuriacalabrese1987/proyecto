@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -11,8 +12,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "nominas")
 public class Nominas {
-	
-	private int n_nomina;
+	@Id
+	private Long n_nomina;
 	
 	private int id_empleado;
 	
@@ -24,11 +25,11 @@ public class Nominas {
 
 	//Getters & Setters
 	
-	public int getN_nomina() {
+	public Long getN_nomina() {
 		return n_nomina;
 	}
 
-	public void setN_nomina(int n_nomina) {
+	public void setN_nomina(Long n_nomina) {
 		this.n_nomina = n_nomina;
 	}
 
