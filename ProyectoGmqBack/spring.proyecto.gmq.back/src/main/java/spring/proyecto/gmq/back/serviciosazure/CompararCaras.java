@@ -97,9 +97,10 @@ public class CompararCaras {
 	        catch (Exception e)
 	        {
 	        	System.out.println("Error: compareFaces001 "+e.getMessage());
+	        	return null;
 	        }
 	        
-			return "Error: compareFaces";
+			return null;
 		 
 	 } 
 }
