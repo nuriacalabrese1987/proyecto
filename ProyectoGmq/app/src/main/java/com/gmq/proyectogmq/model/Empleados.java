@@ -9,6 +9,7 @@ public class Empleados {
     private int n_departamento;
     private int n_centro;
     private String url_storage;
+    private int token;
 
     public Long getId() {
         return id;
@@ -72,5 +73,28 @@ public class Empleados {
 
     public void setUrl_storage(String url_storage) {
         this.url_storage = url_storage;
+    }
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
+    }
+
+    public Empleados(Long id, String nombre, String apellidos, String direccion, String telefono, int n_departamento, int n_centro, String url_storage, int token) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.n_departamento = n_departamento;
+        this.n_centro = n_centro;
+        this.url_storage = url_storage;
+        this.token = token;
+    }
+
+    public Empleados() {
     }
 }

@@ -32,6 +32,10 @@ public class Empleados {
 	private int n_centro;
 	
 	private String url_storage;
+	
+	private int token;
+
+
 
 	//Getters & Setters
 	public Long getId_empleado() {
@@ -96,6 +100,13 @@ public class Empleados {
 
 	public void setUrl_storage(String url_storage) {
 		this.url_storage = url_storage;
+	}
+	public int getToken() {
+		return token;
+	}
+
+	public void setToken(int token) {
+		this.token = token;
 	}
 	
 	
