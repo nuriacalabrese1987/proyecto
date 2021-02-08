@@ -3,7 +3,7 @@ package spring.proyecto.gmq.back.models.service;
 import java.text.SimpleDateFormat;
 
 
-import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,9 +29,8 @@ public class TwilioService {
         Message message = Message.creator( 
                 new com.twilio.type.PhoneNumber("+34"+empleado.getTelefono()), 
                 new com.twilio.type.PhoneNumber("+16068870107"),  
-                "A la atencion de: "+empleado.getNombre()+" "+empleado.getApellidos()+
-                ". Para finalizar su registro debe acceder a localhost:4200/registro/"+empleado.getId_empleado()+
-                ". Atentamente: Atos Iberia"
+                "A la atencion de "+empleado.getNombre()+" "+empleado.getApellidos()+
+                ". Su token es: "+empleado.getToken()
                 )      
             .create(); 
  

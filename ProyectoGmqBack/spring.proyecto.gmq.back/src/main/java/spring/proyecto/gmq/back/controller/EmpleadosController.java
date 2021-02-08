@@ -47,13 +47,13 @@ public class EmpleadosController {
 	}
 	
 	//Metodo para listar un empleado por su id
+	@SuppressWarnings("unused")
 	@GetMapping("/listar/{id}")
 	public ResponseEntity<?> show (@PathVariable Long id) {
+		
 		Map<String, Object> response = new HashMap<>();
-		Empleados empleado = service.findById(id); //Buscamos al empleado por su id
-		
-		Centros centro = centService.findCentroById((long) empleado.getN_centro()); //Buscamos el centro a traves del numero del centro del empleado
-		
+		Empleados empleado = service.findById(id); //Buscamos al empleado por su id		
+		Centros centro = centService.findCentroById((long) empleado.getN_centro()); //Buscamos el centro a traves del numero del centro del empleado		
 		Departamentos dep = depService.findDepById((long) empleado.getN_departamento()); //Hacemos lo mismo para saber su departamento
 		
 		/*

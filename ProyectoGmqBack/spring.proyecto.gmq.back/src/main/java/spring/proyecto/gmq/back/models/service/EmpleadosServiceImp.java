@@ -10,12 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spring.proyecto.gmq.back.models.dao.ICentrosDao;
-import spring.proyecto.gmq.back.models.dao.IDepartamentoDao;
 import spring.proyecto.gmq.back.models.dao.IEmpleadosDao;
 import spring.proyecto.gmq.back.models.dao.INominasDao;
-import spring.proyecto.gmq.back.models.entity.Centros;
-import spring.proyecto.gmq.back.models.entity.Departamentos;
+
 import spring.proyecto.gmq.back.models.entity.Empleados;
 import spring.proyecto.gmq.back.models.entity.Nominas;
 import spring.proyecto.gmq.back.serviciosazure.CompararCaras;
@@ -51,7 +48,7 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 	
 	public List<Empleados> findByTelefono(String telefono) {
 		List<Empleados> empleado=dao.findByTelefono(telefono);
-		whats.sms(empleado.get(0));
+		TwilioService.sms(empleado.get(0));
 		return empleado;
 		
 	}

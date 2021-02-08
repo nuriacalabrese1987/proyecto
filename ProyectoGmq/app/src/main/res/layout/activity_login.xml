@@ -138,6 +138,7 @@
                             android:background="@drawable/button"
                             android:backgroundTint="@color/corte"
                             android:text="ACCEDER"
+                            android:onClick="llamarApi"
                             app:iconTint="@color/corte" />
 
                         <Space
