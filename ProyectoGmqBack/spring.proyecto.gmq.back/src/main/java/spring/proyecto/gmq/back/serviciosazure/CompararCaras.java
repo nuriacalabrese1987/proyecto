@@ -18,8 +18,10 @@ public class CompararCaras {
 	public static String id1, id2; //Variables donde recoger los string
 	
 	//Variable para reconocer la imagen de la url
+	public static detectarCaraURL imagen1;
 	
 	//Variable para reconocer la imagen del array
+	public static detectarCaraArray imagen2;
 	
 	//Metodo para comparar las caras
 	public static String returnIdentical(String image1, String image2) {
@@ -37,9 +39,9 @@ public class CompararCaras {
 	            request.setHeader("Content-Type", "application/json");
 	            request.setHeader("Ocp-Apim-Subscription-Key", "e4ee36742e6548a3a08689f6b3e9c73b");
 	         
-	            //id1 = imagen1.DetectarCara(image1);
+	            id1 = detectarCaraURL.DetectarCaraUrl(image1);
 	            System.out.println("id1: "+id1);
-	            //id2 = imagen2.DetectarCara(image2);
+	            id2 = detectarCaraArray.DetectarCara(image2);
 	            System.out.println("id2: "+id2);
 	            StringEntity reqEntity = 
 	            		new StringEntity(
