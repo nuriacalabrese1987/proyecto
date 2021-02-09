@@ -35,6 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static com.gmq.proyectogmq.util.Apis.URL_EMPLEADOS;
+import static com.gmq.proyectogmq.util.Apis.llamada;
 import static com.gmq.proyectogmq.util.RetrofitService.getCliente;
 
 public class LoginActivity extends AppCompatActivity implements Serializable {
@@ -165,8 +166,8 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
         numTel=telefono.getText().toString();
 
-        EmpleadosService empleadosService = getCliente(URL_EMPLEADOS).create(EmpleadosService.class);
-        Call<List<Empleados>> call = empleadosService.getEmpleado(numTel);
+        //EmpleadosService empleadosService = getCliente(URL_EMPLEADOS).create(EmpleadosService.class);
+        Call<List<Empleados>> call = llamada().getEmpleado(numTel);
 
         call.enqueue(new Callback<List<Empleados>>() {
 

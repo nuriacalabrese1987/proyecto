@@ -11,6 +11,9 @@ public class Apis {
 
     public static String URL_FICHAJES="";
 
+    public static EmpleadosService llamada() {
+        return RetrofitService.getCliente(URL_EMPLEADOS).create(EmpleadosService.class);
+    }
     public static final String TABLA_EMPLEADO="empleado";
     public static final String CREATE_TABLA_EMPLEADO="create table "+TABLA_EMPLEADO+"(id_empleado int primary key, nombre varchar(30), apellidos varchar(30), direccion varchar(100), telefono int, n_departamento int, " +
             "n_centro int, url_storage varchar(200), token int)";
