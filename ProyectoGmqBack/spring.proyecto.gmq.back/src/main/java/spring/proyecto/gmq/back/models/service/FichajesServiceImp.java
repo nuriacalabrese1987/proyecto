@@ -1,12 +1,18 @@
 package spring.proyecto.gmq.back.models.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import spring.proyecto.gmq.back.models.dao.IFichajesDao;
+import spring.proyecto.gmq.back.models.entity.Empleados;
 import spring.proyecto.gmq.back.models.entity.Fichajes;
+import spring.proyecto.gmq.back.serviciosazure.CompararCaras;
 
 @Service
 public class FichajesServiceImp implements IFichajesService{
@@ -20,5 +26,23 @@ public class FichajesServiceImp implements IFichajesService{
 		return dao.findAllFichajesEmpleado(id);
 	}
 
+	public Empleados buscarPorTfno(String telefono) {
+		return dao.buscarPorTfno(telefono);
+	}
 
+	/*
+	 * Metodo para comprobar las caras
+	 */
+	public ResponseEntity<?> comprobarCaras(String imagen1, String imagen2) {
+		Map<String, Object> response = new HashMap<>();
+		
+		String respuesta = CompararCaras.returnIdentical(imagen1, imagen2);
+		if (Double.parseDouble(respuesta) < 0.8) {
+			response.put("Respuesta: ", "Estado -> no son la misma persona");
+			return null; //Retornamos null para tratar el error desde el front
+		} else {
+			response.put("Respuesta", "Estado -> son la misma persona");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		}
+	}
 }
