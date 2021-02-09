@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
      Button button;
      EditText pass;
      EditText telefono;
+     TextView textView2;
 
     String numTel;
 
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         button = findViewById(R.id.button);
         pass = findViewById(R.id.password);
         telefono = findViewById(R.id.telefono);
+        textView2 = findViewById(R.id.textView2);
 
 
 
@@ -97,30 +100,26 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
             @Override
             public void onResponse(Call<List<Empleados>> call, Response<List<Empleados>> response) {
-                pass.setVisibility(View.VISIBLE);
+
                 if (!response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Error de llamada2", Toast.LENGTH_LONG).show();
                     return;
                 }
-                telefono.setText("hola");
+                Empleados empl=new Empleados();
                 List<Empleados> userList = response.body();
                 for (Empleados users : userList) {
-                    Empleados empleado = users;
-                    /*token = users.getToken();
-                    user.setId_usuario(users.getId_usuario());
-                    user.setNombre(users.getNombre());
-                    user.setApellidos(users.getApellidos());
-                    user.setEmail(users.getEmail());
-                    user.setDireccion(users.getDireccion());
-                    user.setPiso(users.getPiso());
-                    user.setLatitud(users.getLatitud());
-                    user.setLongitud(users.getLongitud());
-                    user.setArea_sanitaria(users.getArea_sanitaria());
-                    user.setCiudad(users.getCiudad());
-                    user.setCodigo_postal(users.getCodigo_postal());
-                    user.setTelefono(users.getTelefono());
-                    user.setToken(users.getToken());
-                    user.setEstado(users.getEstado());*/
+
+
+                    empl.setId_empleado(users.getId_empleado());
+                    empl.setNombre(users.getNombre());
+                    empl.setApellidos(users.getApellidos());
+                    empl.setDireccion(users.getDireccion());
+                    empl.setTelefono(users.getTelefono());
+                    empl.setN_departamento(users.getN_departamento());
+                    empl.setN_centro(users.getN_centro());
+                    empl.setUrl_storage(users.getUrl_storage());
+                    empl.setToken(users.getToken());
+
                 }
 
             }
