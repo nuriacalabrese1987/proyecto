@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class Empleados implements Serializable {
 
 
-    private Long id_empleado;
-    private String nombre;
-    private String apellidos;
-    private String direccion;
-    private String telefono;
-    private int n_departamento;
-    private int n_centro;
-    private String url_storage;
-    private int token;
+    Long id_empleado;
+    String nombre;
+    String apellidos;
+    String direccion;
+    String telefono;
+    int n_departamento;
+    int n_centro;
+    String url_storage;
+    int token;
 
 
     public Long getId_empleado() {
