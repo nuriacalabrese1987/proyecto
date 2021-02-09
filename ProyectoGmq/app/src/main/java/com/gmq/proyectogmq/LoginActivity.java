@@ -42,8 +42,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
      Button button;
      EditText pass;
      EditText telefono;
-    dbConnection conection;
-    String token=null;
+
     String numTel;
 
     @Override
@@ -51,91 +50,17 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         button = findViewById(R.id.button);
-        pass=findViewById(R.id.password);
-        telefono=findViewById(R.id.telefono);
-
-
-        conection = new dbConnection(getApplicationContext(), Apis.TABLA_EMPLEADO, null, 1);
-        SQLiteDatabase db = conection.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from " + Apis.TABLA_EMPLEADO, null);
-        while (cursor.moveToNext()) {
-            token = cursor.getString(8);
-        }
-        if (token == null) {
-
-           solicitarToken();
-
-        } else {
-
-            BiometricManager biometricManager = BiometricManager.from(this);
-            switch (biometricManager.canAuthenticate())//Usamos un switch para poner diferentes posibilidades
-            {
-                case BiometricManager.BIOMETRIC_SUCCESS:
-                    Toast.makeText(LoginActivity.this, "Puedes usar el sensor de huella dactilar para iniciar sesión", Toast.LENGTH_LONG).show();
-                    break;
-                case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                    Toast.makeText(LoginActivity.this, "El dispositivo no tiene un sensor de huellas dactilares.", Toast.LENGTH_LONG).show();
-                    break;
-                case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
-                    Toast.makeText(LoginActivity.this, "El sensor biométrico no está actualmente disponible.a", Toast.LENGTH_LONG).show();
-                    break;
-                case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                    Toast.makeText(LoginActivity.this, "Tu dispositivo no tiene ninguna huella dactilar guardada, por favor, comprueba tus ajustes de seguridad", Toast.LENGTH_LONG).show();
-                    break;
-            }
-
-        }
-
-        //Ya creamos la comprobación de que el dispositivo tenga o no sensor de huellas ahora haremos
-        //El cuadro de diálogo de la biometría.
-        //Primero haremos un ejecutor.
-        Executor executor = ContextCompat.getMainExecutor(LoginActivity.this);
-        //Ahora haremos un callback del prompt.
-        //Eso nos dirá si podemos logearnos o no.
-        BiometricPrompt biometricPrompt = new BiometricPrompt(LoginActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override//Este método es llamado mientras ocurra un error en la autenticación.
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-            }
-
-            @Override//Este método es llamado cuando el inicio de sesión sea el correcto.
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent dos = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(dos);
-                    }
-                }, 2000);
-                Toast.makeText(getApplicationContext(), "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override//Este método es llamado cuando el inicio de sesión falla.
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-            }
-        });
-
-        //Ahora creamos nuestro diálogo de la Biometría.
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Inicio sesión")
-                .setDescription("Usa tu sensor de huella dactilar para iniciar sesión")
-                .setNegativeButtonText("Cancelar")
-                .build();
+        pass = findViewById(R.id.password);
+        telefono = findViewById(R.id.telefono);
 
 
 
-        biometricPrompt.authenticate(promptInfo);
     }
 
 
     //-------------------------------- PASAMOS A SOLICITAR EL TOKEN Y LEERLO --------------------------------
         private void solicitarToken() {
-            String mensaje="Introduzca su telefono";
 
-            telefono.setText(mensaje);
             pass.setVisibility(View.INVISIBLE);
             comprobarPermisosSms();
             requestSMSPermission();
@@ -166,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
         numTel=telefono.getText().toString();
 
-        //EmpleadosService empleadosService = getCliente(URL_EMPLEADOS).create(EmpleadosService.class);
         Call<List<Empleados>> call = llamada().getEmpleado(numTel);
 
         call.enqueue(new Callback<List<Empleados>>() {
