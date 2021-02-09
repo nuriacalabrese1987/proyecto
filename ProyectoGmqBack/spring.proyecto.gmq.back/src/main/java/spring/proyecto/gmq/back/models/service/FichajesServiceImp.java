@@ -16,7 +16,7 @@ import spring.proyecto.gmq.back.serviciosazure.CompararCaras;
 
 @Service
 public class FichajesServiceImp implements IFichajesService{
-
+ 
 	@Autowired
 	IFichajesDao dao;
 	
@@ -33,16 +33,22 @@ public class FichajesServiceImp implements IFichajesService{
 	/*
 	 * Metodo para comprobar las caras
 	 */
-	public ResponseEntity<?> comprobarCaras(String imagen1, String imagen2) {
+	public Boolean comprobarCaras(String imagen1, String imagen2) {
 		Map<String, Object> response = new HashMap<>();
 		
 		String respuesta = CompararCaras.returnIdentical(imagen1, imagen2);
 		if (Double.parseDouble(respuesta) < 0.8) {
 			response.put("Respuesta: ", "Estado -> no son la misma persona");
-			return null; //Retornamos null para tratar el error desde el front
+			return false; //Retornamos null para tratar el error desde el front
 		} else {
 			response.put("Respuesta", "Estado -> son la misma persona");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			return true;
 		}
+	}
+
+	@Override
+	public Fichajes guardarFichaje(Fichajes fichaje) {
+		// TODO Auto-generated method stub
+		return dao.save(fichaje);
 	}
 }

@@ -1,6 +1,7 @@
 package spring.proyecto.gmq.back.models.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.TemporalType;
 public class Fichajes {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long n_fichaje;
 	
 	private Long id_empleado;
@@ -23,8 +25,8 @@ public class Fichajes {
 	private boolean estado;
 	
 	@Column(name="fecha")
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
+	//@Temporal(TemporalType.DATE)
+	private Timestamp fecha;
 
 	public Long getN_fichaje() {
 		return n_fichaje;
@@ -50,12 +52,12 @@ public class Fichajes {
 		this.estado = estado;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFecha(Timestamp fecha2) {
+		this.fecha = fecha2;
 	}
 
 

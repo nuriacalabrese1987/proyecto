@@ -13,4 +13,6 @@ public interface IFichajesService {
 
 	public List<Fichajes> findAllFichajesEmpleado(Long id);
 	
+	public Fichajes guardarFichaje(Fichajes fichaje);
+	
 }
