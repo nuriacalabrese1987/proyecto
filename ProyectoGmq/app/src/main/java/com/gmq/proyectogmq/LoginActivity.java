@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import com.gmq.proyectogmq.model.Empleados;
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.EmpleadosService;
+import com.gmq.proyectogmq.util.RetrofitService;
 import com.gmq.proyectogmq.util.dbConnection;
 
 import java.io.Serializable;
@@ -31,6 +32,7 @@ import java.util.concurrent.Executor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static com.gmq.proyectogmq.util.Apis.URL_EMPLEADOS;
 import static com.gmq.proyectogmq.util.RetrofitService.getCliente;

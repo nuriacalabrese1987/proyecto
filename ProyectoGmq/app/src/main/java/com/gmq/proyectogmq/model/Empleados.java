@@ -1,7 +1,11 @@
 package com.gmq.proyectogmq.model;
 
-public class Empleados {
-    private Long id;
+import java.io.Serializable;
+
+public class Empleados implements Serializable {
+
+
+    private Long id_empleado;
     private String nombre;
     private String apellidos;
     private String direccion;
@@ -11,14 +15,14 @@ public class Empleados {
     private String url_storage;
     private int token;
 
-    public Long getId() {
-        return id;
+
+    public Long getId_empleado() {
+        return id_empleado;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_empleado(Long id_empleado) {
+        this.id_empleado = id_empleado;
     }
-
     public String getNombre() {
         return nombre;
     }
@@ -83,8 +87,8 @@ public class Empleados {
         this.token = token;
     }
 
-    public Empleados(Long id, String nombre, String apellidos, String direccion, String telefono, int n_departamento, int n_centro, String url_storage, int token) {
-        this.id = id;
+    public Empleados(Long id_empleado, String nombre, String apellidos, String direccion, String telefono, int n_departamento, int n_centro, String url_storage, int token) {
+        this.id_empleado = id_empleado;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.direccion = direccion;
