@@ -54,7 +54,10 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         button = findViewById(R.id.button);
         pass = findViewById(R.id.password);
         telefono = findViewById(R.id.telefono);
-        textView2 = findViewById(R.id.textView2);
+        pass.setVisibility(View.INVISIBLE);
+        comprobarPermisosSms();
+        requestSMSPermission();
+        new OTP_Receiver().setEditText(pass);
 
 
 
@@ -62,35 +65,17 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
 
     //-------------------------------- PASAMOS A SOLICITAR EL TOKEN Y LEERLO --------------------------------
-        private void solicitarToken() {
 
-            pass.setVisibility(View.INVISIBLE);
-            comprobarPermisosSms();
-            requestSMSPermission();
-            new OTP_Receiver().setEditText(pass);
+    //PARA ACCEDER SI YA SE TIENE TOKEN
+        public void logarse(View vista){
+        pass.setVisibility(View.VISIBLE);
+        button.setText("ACCEDER");
 
-
-         }
-
-         //Comprueba los permisos
-    private void comprobarPermisosSms() {
-        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
         }
-    }
-    //Muestra el cuadro de dialogo para que los aceptes en el movil
-    private void requestSMSPermission() {
-        String permission = Manifest.permission.RECEIVE_SMS;
 
-        int grant = ContextCompat.checkSelfPermission(this, permission);
-        if (grant != PackageManager.PERMISSION_GRANTED) {
-            String[] permission_list = new String[1];
-            permission_list[0] = permission;
-            ActivityCompat.requestPermissions(this, permission_list, 1);
-        }
-    }
 
-    public void llamarApi (View view){
+      //PARA SOLICITAR EL POJO
+        public void llamarApi (View view){
 
         numTel=telefono.getText().toString();
 
@@ -135,12 +120,25 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
     }
 
+    //Comprueba los permisos
+    private void comprobarPermisosSms() {
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
+        }
+    }
+    //Muestra el cuadro de dialogo para que los aceptes en el movil
+    private void requestSMSPermission() {
+        String permission = Manifest.permission.RECEIVE_SMS;
+
+        int grant = ContextCompat.checkSelfPermission(this, permission);
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            String[] permission_list = new String[1];
+            permission_list[0] = permission;
+            ActivityCompat.requestPermissions(this, permission_list, 1);
+        }
+    }
 
 }
 
-    /*public void token(View view){
-        Intent token = new Intent(LoginActivity.this, TokenActivity.class );
-        startActivity(token);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-    }*/
+
 

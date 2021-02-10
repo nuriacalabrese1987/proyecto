@@ -43,6 +43,7 @@ public class BienvenidaActivity extends AppCompatActivity{
                 public void run() {
                     Intent dos = new Intent(BienvenidaActivity.this, LoginActivity.class);
                     startActivity(dos);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }, 2000);
 
@@ -88,6 +89,7 @@ public class BienvenidaActivity extends AppCompatActivity{
                         public void run() {
                             Intent dos = new Intent(BienvenidaActivity.this, MainActivity.class);
                             startActivity(dos);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
                     }, 2000);
                     Toast.makeText(getApplicationContext(), "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show();
