@@ -10,4 +10,6 @@ import spring.proyecto.gmq.back.models.entity.Nominas;
 public interface INominasService {
 	
 	public List<Nominas> findNominaByNumEmpleado(int id);
+	
+	public Nominas findNominaMes(String fecha);
 }

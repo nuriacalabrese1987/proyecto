@@ -20,4 +20,10 @@ public class NominasServiceImp implements INominasService{
 		return nomdao.findNominaByNumEmpleado(id);
 	}
 
+	@Override
+	public Nominas findNominaMes(String fecha) {
+		// TODO Auto-generated method stub
+		return nomdao.findNominaMes(fecha);
+	}
+
 }
