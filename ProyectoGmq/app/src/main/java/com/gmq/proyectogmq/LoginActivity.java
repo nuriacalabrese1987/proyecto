@@ -43,9 +43,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
      Button button;
      EditText pass;
      EditText telefono;
-     TextView textView2;
-
-    String numTel;
+     String numTel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +64,19 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
     //-------------------------------- PASAMOS A SOLICITAR EL TOKEN Y LEERLO --------------------------------
 
-    //PARA ACCEDER SI YA SE TIENE TOKEN
-        public void logarse(View vista){
+    //PARA ACCEDER SI YA SE TIENE TOKEN O LO TIENE QUE PONER A MANO
+        public void logarse(Empleados empleado){
+            final String[] token = new String[1];
+            final String[] tel = new String[1];
         pass.setVisibility(View.VISIBLE);
         button.setText("ACCEDER");
+        button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                token[0] = pass.getText().toString();
+                tel[0] = telefono.getText().toString();
+                compararToken(empleado, tel[0], token[0]);
+            }
+        });
 
         }
 
@@ -94,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                 List<Empleados> userList = response.body();
                 for (Empleados users : userList) {
 
-
                     empl.setId_empleado(users.getId_empleado());
                     empl.setNombre(users.getNombre());
                     empl.setApellidos(users.getApellidos());
@@ -106,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                     empl.setToken(users.getToken());
 
                 }
-
+                logarse(empl);
             }
 
 
@@ -138,6 +144,38 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         }
     }
 
+        public void compararToken(Empleados empleado, String numtel, String token) {
+
+
+            Call<Boolean> call = llamada().getLogin(numtel, token);
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Error de llamada2", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Boolean respuesta = response.body();
+                    if (respuesta) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("empleado", empleado);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Error de autenticacion", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+
+                }
+            });
+
+        }
 }
 
 

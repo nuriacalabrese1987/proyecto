@@ -5,7 +5,9 @@ import com.gmq.proyectogmq.model.Empleados;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface EmpleadosService {
@@ -14,4 +16,7 @@ public interface EmpleadosService {
      */
     @GET("token/{telefono}")
     Call<List<Empleados>> getEmpleado (@Path("telefono") String telefono);
+
+    @POST("login/{telefono}")
+    Call<Boolean> getLogin (@Path("telefono") String telefono, @Body String token);
 }

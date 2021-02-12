@@ -30,54 +30,5 @@ public class TwilioService {
         System.out.println(message.getSid());
      
     } 
-    
-    /*
-    //------------------------ WhatsApp ------------------------
-    public static void whatsApp(Empleados empleado) { 
 
-    	Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message message = Message.creator( 	
-                new com.twilio.type.PhoneNumber("whatsapp:+34"+empleado.getTelefono()), 
-                new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),  
-                "A la atencion de: "+empleado.getNombre()+" "+empleado.getApellidos()+". Se ha programado una visita el "+formatear.format(empleado.getFecha_visita())+
-                ". Para finalizar su registro debe acceder a localhost:4200/registro/"+empleado.getId_empleado()+
-                ". Atentamente: Atos Iberia"
-                )     
-            .create(); 
-        System.out.println(message.getSid()); 
-    }
-    */
-
-    /*
-    
-    //------------------------EMAIL--------------------------------
-	private static final Logger LOGGER = LoggerFactory.getLogger(TwilioService.class);
-	@Autowired
-	private JavaMailSender sender;
-
-
-	boolean sendEmailTool(Empleados empleado) {
-		boolean send = false;
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
-		String mensaje = "A la atencion de: "+empleado.getNombre()+" "+empleado.getApellidos()+". "
-				+ "\n Se ha programado una visita en nuestra sede para la fecha: "+formatear.format(empleado.getFecha_visita())
-				+ "\nPara finalizar su registro debe acceder a la web:\n"
-				+ " http://localhost:4200/registro/"+empleado.getId()+
-				"\n Atentamente: Dto de atencion al cliente";
-		
-		try {
-			helper.setTo(empleado.getEmail());
-			helper.setText(mensaje, true);
-			helper.setSubject("Finalice su registro");
-			sender.send(message);
-			send = true;
-			LOGGER.info("Mail enviado!");
-			LOGGER.info(mensaje);
-		} catch (MessagingException e) {
-			LOGGER.error("Hubo un error al enviar el mail: {}", e);
-		}
-		return send;
-	}
-	*/
 }

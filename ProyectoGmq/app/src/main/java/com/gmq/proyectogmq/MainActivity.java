@@ -1,9 +1,14 @@
 package com.gmq.proyectogmq;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.gmq.proyectogmq.model.Empleados;
+import com.gmq.proyectogmq.util.Apis;
+import com.gmq.proyectogmq.util.dbConnection;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -16,8 +21,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.Serializable;
 
+public class MainActivity extends AppCompatActivity implements Serializable {
+    Empleados empleado;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -27,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+        Bundle bundle = this.getIntent().getExtras();
+        empleado=(Empleados) bundle.getSerializable("empleado");
+        grabarEmpleado(empleado);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,5 +70,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    //GRABAMOS AL EMPLEADO EN LA BASE DE DATOS
+
+    private void grabarEmpleado(Empleados empleado){
+
+        dbConnection conection = new dbConnection(MainActivity.this, Apis.TABLA_EMPLEADO,null,1);
+        SQLiteDatabase db = conection.getWritableDatabase();
+        ContentValues values= new ContentValues();
+        values.put("id_empleado ",empleado.getId_empleado());
+        values.put("nombre",empleado.getNombre());
+        values.put("apellidos",empleado.getApellidos());
+        values.put("direccion",empleado.getDireccion());
+        values.put("telefono",empleado.getTelefono());
+        values.put("n_departamento",empleado.getN_departamento());
+        values.put("n_centro",empleado.getN_centro());
+        values.put("url_storage",empleado.getUrl_storage());
+        Long resultado=db.insert(Apis.TABLA_EMPLEADO,null,values);
+        db.close();
     }
 }

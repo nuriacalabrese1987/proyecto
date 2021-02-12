@@ -19,5 +19,7 @@ public interface IEmpleadosService {
 	public Empleados save(Empleados empleado);
 
 	public List<Empleados> findByTelefono(String telefono);
+
+	public Boolean getLogin(String telefono, String token);
 	
 }

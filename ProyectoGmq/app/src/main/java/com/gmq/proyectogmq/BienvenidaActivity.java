@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 public class BienvenidaActivity extends AppCompatActivity{
 
 
-    String token=null;
+    int token;
     dbConnection conection;
 
     @Override
@@ -33,9 +33,9 @@ public class BienvenidaActivity extends AppCompatActivity{
         SQLiteDatabase db = conection.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from " + Apis.TABLA_EMPLEADO, null);
         while (cursor.moveToNext()) {
-            token = cursor.getString(8);
+            token = cursor.getInt(Integer.parseInt("token"));
         }
-        if (token == null) {
+        if (token == 0) {
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

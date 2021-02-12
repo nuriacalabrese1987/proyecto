@@ -30,12 +30,20 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 	@Autowired
 	TwilioService whats;
 	
+	
+	
+	//METODO PARA LISTAR EMPLEADOS 
+	
 	@Override
 	public List<Empleados> listar() {
 		// TODO Auto-generated method stub
 		return (List<Empleados>) dao.findAll();
 	}
-	//Metodo para encontrar al empleado por id
+	
+	
+	
+	//METODO PARA ENCONTRAR EL EMPLEADO POR ID
+	
 	@Override
 	@Transactional(readOnly = true)
 	public Empleados findById(Long id) {
@@ -45,10 +53,11 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 		return dao.findById(id).orElse(null);
 	}
 
+	//METODO PARA BUSCAR POR TELEFONO
 	
 	public List<Empleados> findByTelefono(String telefono) {
 		List<Empleados> empleado=dao.findByTelefono(telefono);
-		TwilioService.sms(empleado.get(0));
+		//TwilioService.sms(empleado.get(0));
 		return empleado;
 		
 	}
@@ -75,10 +84,27 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 	public Empleados save(Empleados empleado) {
 		// TODO Auto-generated method stub
 		Empleados rpta = dao.save(empleado);
-
-		whats.sms(empleado);
 		
 		return rpta;
+	}
+	
+	
+	@Override
+	public Boolean getLogin(String telefono, String token) {
+		Boolean authToken;
+		List<Empleados> empleado = findByTelefono(telefono);
+		System.out.println("aqui tambien");
+		String tokenEmpleado="\""+String.valueOf(empleado.get(0).getToken()+"\"");
+		if(tokenEmpleado.equals(token)) {
+			System.out.println("al true");
+			authToken=true;
+		}else {
+			System.out.println(tokenEmpleado);
+			System.out.println(token);
+			authToken=false;
+		}
+		System.out.println(authToken);
+		return authToken;
 	}
 		
 	

@@ -86,6 +86,13 @@ public class EmpleadosController {
 		return service.findByTelefono(telefono);
 	}
 	
+	//Metodo para solicitar el token
+	@PostMapping("login/{telefono}")
+	public Boolean getLogin (@PathVariable String telefono, @RequestBody String token){
+		System.out.println("ha entrado aqui");
+		return service.getLogin(telefono, token);
+	}
+	
 	//Metodo para detectar caras
 	@PostMapping("/fichajeCara/{id}")
 	public ResponseEntity<?> comprobarCaraArray (@PathVariable Long id, @RequestBody String imagen) {
