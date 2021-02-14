@@ -1,6 +1,7 @@
 package com.gmq.proyectogmq;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -52,7 +53,6 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         button = findViewById(R.id.button);
         pass = findViewById(R.id.password);
         telefono = findViewById(R.id.telefono);
-        pass.setVisibility(View.INVISIBLE);
         comprobarPermisosSms();
         requestSMSPermission();
         new OTP_Receiver().setEditText(pass);
@@ -62,26 +62,45 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
     }
 
 
-    //-------------------------------- PASAMOS A SOLICITAR EL TOKEN Y LEERLO --------------------------------
+    //----------------- METODO PARA SOLICITAR UN TOKEN CON UN NUMERO DE TELEFONO-----------------------------
+    public void solicitarToken(View vista){
 
-    //PARA ACCEDER SI YA SE TIENE TOKEN O LO TIENE QUE PONER A MANO
+        String tel=telefono.getText().toString();
+
+        Call<Boolean> call = llamada().getToken(tel);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Introduzca un numero de telefono", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error al solicitar la contraseña, intentelo de nuevo", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+
+
+    //----------------- METOFDO PARA ACCEDER SI YA SE TIENE TOKEN O LO TIENE QUE PONER A MANO------------------
         public void logarse(Empleados empleado){
             final String[] token = new String[1];
             final String[] tel = new String[1];
-        pass.setVisibility(View.VISIBLE);
-        button.setText("ACCEDER");
-        button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
                 token[0] = pass.getText().toString();
                 tel[0] = telefono.getText().toString();
                 compararToken(empleado, tel[0], token[0]);
-            }
-        });
 
         }
 
 
-      //PARA SOLICITAR EL POJO
+      //--------------- METODO PARA SOLICITAR EL POJO DEL USUARIO-----------------------------------------
         public void llamarApi (View view){
 
         numTel=telefono.getText().toString();
@@ -94,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
             public void onResponse(Call<List<Empleados>> call, Response<List<Empleados>> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Error de llamada2", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Introduzca un numero de telefono y una contraseña", Toast.LENGTH_LONG).show();
                     return;
                 }
                 Empleados empl=new Empleados();
@@ -126,7 +145,8 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
     }
 
-    //Comprueba los permisos
+    //---------------METODOS PARA COMPROBAR LOS PERMISOS---------------------------------------
+
     private void comprobarPermisosSms() {
         if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
@@ -144,6 +164,9 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         }
     }
 
+
+    //------------------METODO PARA COMPARAR EL USUARIO Y CONTRASEÑA Y DEJARLE PASAR-------------------------
+
         public void compararToken(Empleados empleado, String numtel, String token) {
 
 
@@ -153,15 +176,13 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
 
                     if (!response.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Error de llamada2", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Error de llamada", Toast.LENGTH_LONG).show();
                         return;
                     }
                     Boolean respuesta = response.body();
                     if (respuesta) {
+                        grabarEmpleado(empleado);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("empleado", empleado);
-                        intent.putExtras(bundle);
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "Error de autenticacion", Toast.LENGTH_LONG).show();
@@ -176,6 +197,26 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
             });
 
         }
+
+
+        //-----------------METODO PARA GRABAR EL EMPLEADO EN LA BBDD DE LA APP--------------------------------
+        private void grabarEmpleado(Empleados empleado){
+
+        dbConnection conection = new dbConnection(LoginActivity.this, Apis.TABLA_EMPLEADO,null,1);
+        SQLiteDatabase db = conection.getWritableDatabase();
+        ContentValues values= new ContentValues();
+        values.put("id_empleado ",empleado.getId_empleado());
+        values.put("nombre",empleado.getNombre());
+        values.put("apellidos",empleado.getApellidos());
+        values.put("direccion",empleado.getDireccion());
+        values.put("telefono",empleado.getTelefono());
+        values.put("n_departamento",empleado.getN_departamento());
+        values.put("n_centro",empleado.getN_centro());
+        values.put("url_storage",empleado.getUrl_storage());
+        values.put("token",empleado.getToken());
+        Long resultado=db.insert(Apis.TABLA_EMPLEADO,null,values);
+        db.close();
+    }
 }
 
 

@@ -81,9 +81,14 @@ public class EmpleadosController {
 	}
 	
 	//Metodo para solicitar el token
-	@GetMapping("token/{telefono}")
-	public List<Empleados> solicitarToken(@PathVariable String telefono){
+	@GetMapping("solicitar/{telefono}")
+	public List<Empleados> solicitarPojo(@PathVariable String telefono){
 		return service.findByTelefono(telefono);
+	}
+	
+	@PostMapping("token/{telefono}")
+	public Boolean solicitarToken(@PathVariable String telefono){		
+		return service.solicitarToken(telefono);
 	}
 	
 	//Metodo para solicitar el token

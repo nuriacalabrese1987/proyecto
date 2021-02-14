@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 public class BienvenidaActivity extends AppCompatActivity{
 
 
-    int token;
+    int token=0;
     dbConnection conection;
 
     @Override
@@ -33,21 +33,13 @@ public class BienvenidaActivity extends AppCompatActivity{
         SQLiteDatabase db = conection.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from " + Apis.TABLA_EMPLEADO, null);
         while (cursor.moveToNext()) {
-            token = cursor.getInt(Integer.parseInt("token"));
+            token = cursor.getInt(8);
         }
         if (token == 0) {
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent dos = new Intent(BienvenidaActivity.this, LoginActivity.class);
-                    startActivity(dos);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                }
-            }, 2000);
-
-
+                Intent dos = new Intent(BienvenidaActivity.this, LoginActivity.class);
+                startActivity(dos);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         } else {
 
@@ -91,13 +83,14 @@ public class BienvenidaActivity extends AppCompatActivity{
                             startActivity(dos);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
-                    }, 2000);
+                    }, 1000);
                     Toast.makeText(getApplicationContext(), "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override//Este método es llamado cuando el inicio de sesión falla.
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
+                    Toast.makeText(getApplicationContext(), "¡Inicio de sesión falla!", Toast.LENGTH_SHORT).show();
                 }
             });
 

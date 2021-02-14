@@ -61,6 +61,14 @@ public class EmpleadosServiceImp implements IEmpleadosService{
 		return empleado;
 		
 	}
+	
+	public Boolean solicitarToken(String telefono) {
+		List<Empleados> empleado=findByTelefono(telefono);
+		TwilioService.sms(empleado.get(0));
+		System.out.println(empleado.get(0).getDireccion());
+		Boolean respuesta=true;
+		return respuesta;
+	}
 
 	/*
 	 * 	METODO PARA COMPROBAR LAS CARAS

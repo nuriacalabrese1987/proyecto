@@ -14,8 +14,11 @@ public interface EmpleadosService {
     /*
     Añadir peticiones GET O POST PERTINENTES
      */
-    @GET("token/{telefono}")
+    @GET("solicitar/{telefono}")
     Call<List<Empleados>> getEmpleado (@Path("telefono") String telefono);
+
+    @POST("token/{telefono}")
+    Call<Boolean> getToken (@Path("telefono") String telefono);
 
     @POST("login/{telefono}")
     Call<Boolean> getLogin (@Path("telefono") String telefono, @Body String token);

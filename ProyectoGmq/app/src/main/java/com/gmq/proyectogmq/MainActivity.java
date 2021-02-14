@@ -1,10 +1,12 @@
 package com.gmq.proyectogmq;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.gmq.proyectogmq.model.Empleados;
 import com.gmq.proyectogmq.util.Apis;
@@ -24,8 +26,11 @@ import androidx.appcompat.widget.Toolbar;
 import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
+
     Empleados empleado;
     private AppBarConfiguration mAppBarConfiguration;
+    TextView text;
+    dbConnection conection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        Bundle bundle = this.getIntent().getExtras();
-        empleado=(Empleados) bundle.getSerializable("empleado");
-        grabarEmpleado(empleado);
+        text = findViewById(R.id.textView2);
+        leerBD();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,22 +76,17 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 || super.onSupportNavigateUp();
     }
 
-    //GRABAMOS AL EMPLEADO EN LA BASE DE DATOS
 
-    private void grabarEmpleado(Empleados empleado){
+    public void leerBD(){
+    String mensaje=null;
 
-        dbConnection conection = new dbConnection(MainActivity.this, Apis.TABLA_EMPLEADO,null,1);
-        SQLiteDatabase db = conection.getWritableDatabase();
-        ContentValues values= new ContentValues();
-        values.put("id_empleado ",empleado.getId_empleado());
-        values.put("nombre",empleado.getNombre());
-        values.put("apellidos",empleado.getApellidos());
-        values.put("direccion",empleado.getDireccion());
-        values.put("telefono",empleado.getTelefono());
-        values.put("n_departamento",empleado.getN_departamento());
-        values.put("n_centro",empleado.getN_centro());
-        values.put("url_storage",empleado.getUrl_storage());
-        Long resultado=db.insert(Apis.TABLA_EMPLEADO,null,values);
-        db.close();
+        conection = new dbConnection(getApplicationContext(), Apis.TABLA_EMPLEADO,null,1);
+        SQLiteDatabase db = conection.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from " + Apis.TABLA_EMPLEADO, null);
+        while (cursor.moveToNext()) {
+            mensaje="id "+cursor.getString(0)+"nombre "+cursor.getString(1)+"apellidos "+cursor.getString(2)+"direcciom "+cursor.getString(3)+"telefono "+cursor.getString(4)
+                    +"dep "+cursor.getString(5)+"centro "+cursor.getString(6)+"url "+cursor.getString(7)+"el8 "+cursor.getString(8);
+        }
+        text.setText(mensaje);
     }
 }

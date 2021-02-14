@@ -21,5 +21,7 @@ public interface IEmpleadosService {
 	public List<Empleados> findByTelefono(String telefono);
 
 	public Boolean getLogin(String telefono, String token);
+
+	public Boolean solicitarToken(String telefono);
 	
 }
