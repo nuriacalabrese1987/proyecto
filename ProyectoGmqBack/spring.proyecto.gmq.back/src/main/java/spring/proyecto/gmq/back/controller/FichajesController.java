@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import spring.proyecto.gmq.back.models.entity.Centros;
 import spring.proyecto.gmq.back.models.entity.Empleados;
 import spring.proyecto.gmq.back.models.entity.Fichajes;
+import spring.proyecto.gmq.back.models.service.CentrosServiceImp;
 import spring.proyecto.gmq.back.models.service.FichajesServiceImp;
 import spring.proyecto.gmq.back.models.service.IEmpleadosService;
 import spring.proyecto.gmq.back.models.service.IFichajesService;
@@ -32,18 +36,30 @@ public class FichajesController {
 	@Autowired 
 	FichajesServiceImp serviceImp;
 	
+	@Autowired
+	CentrosServiceImp centroService;
+	
 	@GetMapping("/verFichajes/{id}")
 	public List<Fichajes> listarFichajes (@PathVariable Long id) {
 		
 		return fichService.findAllFichajesEmpleado(id);
 	}
 	
-	@PostMapping("/hacerFichaje/{telefono}")
-	public Boolean comprobarCara (@PathVariable String telefono, @RequestBody String imagen){
+	
+	@PostMapping("/hacerFichaje/{telefono}/{latitud}/{longitud}")
+	public Boolean comprobarCara (@PathVariable String telefono, 
+			@PathVariable String latitud, 
+			@PathVariable String longitud, 
+			@RequestBody String imagen){
+		
 		Map<String, Object> response = new HashMap<>();
 		//Buscamos primero el empleado por telefono
-		Empleados emp = serviceImp.buscarPorTfno(telefono);	
-		
+		Empleados emp = serviceImp.buscarPorTfno(telefono);
+		//Buscamos el centro mediante el empleado
+		Centros centro = centroService.findCentroById((long) emp.getN_centro());
+		//Guardamos la longitud y la latitud
+		double lat = centro.getLatitud();
+		double longi = centro.getLongitud();
 		//Creamos un nuevo fichaje para establecer a true o false
 		Fichajes fichaje = new Fichajes();
 		
@@ -60,17 +76,9 @@ public class FichajesController {
 		//date.getTime();
 		java.sql.Timestamp fecha = new java.sql.Timestamp(date.getTime());
 		
-		if (result == false) {
+		if (result == true && lat == Double.parseDouble(latitud) && longi == Double.parseDouble(longitud)) {
 			
-			System.out.println("Ha entrado aqui...");
-			fichaje.setFecha(fecha);
-			
-			fichaje.setId_empleado(emp.getId_empleado());
-			fichaje.setEstado(false);
-			fichajeNuevo = fichService.guardarFichaje(fichaje);
-			return false;
-			
-		} else {
+
 			System.out.println("\n\nLas caras son iguales");
 			fichaje.setFecha(fecha);
 			fichaje.setId_empleado(emp.getId_empleado());
@@ -80,5 +88,16 @@ public class FichajesController {
 			fichajeNuevo = fichService.guardarFichaje(fichaje);
 			response.put("Resultado: ", fichaje.isEstado());
 			return true;
-		}	}
+			
+		} else {
+			System.out.println("Ha entrado aqui...");
+			fichaje.setFecha(fecha);
+			
+			fichaje.setId_empleado(emp.getId_empleado());
+			fichaje.setEstado(false);
+			fichajeNuevo = fichService.guardarFichaje(fichaje);
+			return false;
+		}	
+		
+	}
 }
