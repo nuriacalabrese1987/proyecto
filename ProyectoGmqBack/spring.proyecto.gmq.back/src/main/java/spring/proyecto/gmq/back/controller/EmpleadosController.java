@@ -98,14 +98,4 @@ public class EmpleadosController {
 		return service.getLogin(telefono, token);
 	}
 	
-	//Metodo para detectar caras
-	@PostMapping("/fichajeCara/{id}")
-	public ResponseEntity<?> comprobarCaraArray (@PathVariable Long id, @RequestBody String imagen) {
-		Empleados emp = empservice.findById(id);
-		System.out.println(emp.getUrl_storage());
-		
-		String imagen1 = emp.getUrl_storage();
-		
-		return empservice.comprobarCaras(imagen1, imagen);
-	}
 }

@@ -39,7 +39,7 @@ public class FichajesServiceImp implements IFichajesService{
 		String respuesta = CompararCaras.returnIdentical(imagen1, imagen2);
 		if (Double.parseDouble(respuesta) < 0.8) {
 			response.put("Respuesta: ", "Estado -> no son la misma persona");
-			return false; //Retornamos null para tratar el error desde el front
+			return false; 
 		} else {
 			response.put("Respuesta", "Estado -> son la misma persona");
 			return true;
