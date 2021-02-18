@@ -13,10 +13,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gmq.proyectogmq.R;
+import com.google.android.material.internal.NavigationMenuItemView;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    NavigationMenuItemView Fichaje;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,9 +29,10 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                textView.setText("");
             }
         });
         return root;
     }
+
 }
