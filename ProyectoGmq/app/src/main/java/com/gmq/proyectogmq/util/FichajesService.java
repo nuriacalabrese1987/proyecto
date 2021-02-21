@@ -1,7 +1,10 @@
 package com.gmq.proyectogmq.util;
 
+import com.gmq.proyectogmq.model.Centros;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -16,5 +19,8 @@ public interface FichajesService {
                                @Path("latitud") String latitud,
                                @Path("longitud") String longitud,
                                @Body String imagen);
+
+    @GET("hacerFichaje/{numCentro}")
+    Call<Centros> solicitarCentro(@Path("centro") String centro);
 
 }

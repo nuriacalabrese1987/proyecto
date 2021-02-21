@@ -1,11 +1,17 @@
 package com.gmq.proyectogmq;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,15 +22,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.core.app.ActivityCompat;
 
+import com.gmq.proyectogmq.model.Centros;
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.FichajesService;
-import com.google.android.material.navigation.NavigationView;
 
 import java.io.ByteArrayOutputStream;
 
@@ -32,12 +34,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FotoActivity extends AppCompatActivity {
+import static com.gmq.proyectogmq.util.Apis.llamada;
+import static com.gmq.proyectogmq.util.Apis.llamadaFichaje;
+
+
+public class FotoActivity extends AppCompatActivity  {
     //Variables
     private TextView tv1, tv2, tv3, tvEstado;
     private EditText et1;
     private Button botonCamara, botonNomina;
     private ProgressBar progreso;
+    private LocationManager ubicacion;
+    float distancia;
 
     //Variables para la imagen
     byte[] ImagenBytes;
@@ -46,11 +54,14 @@ public class FotoActivity extends AppCompatActivity {
     String telefono = null;
     FichajesService service;
     String url="";
+    String centro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foto);
+        Intent intent = getIntent();
+        centro = intent.getStringExtra("centro");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,6 +71,7 @@ public class FotoActivity extends AppCompatActivity {
         tvEstado = findViewById(R.id.textResult);
         et1 = findViewById(R.id.telefono);
 
+        localizacion();
         botonCamara = findViewById(R.id.botonCamara);
 
         botonCamara.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +103,55 @@ public class FotoActivity extends AppCompatActivity {
         ImagenBytes = ConvertirImagenByte(ImagenBitmap);
         //System.out.println(ImagenBytes);
         realizarFichaje();
+
+    }
+
+    //Metodo para localizar el telefono
+
+    private void localizacion() {
+
+        //Comprobamos que hay permiso de ubicacion y si no lo tiene se lo damos
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+            },1000);
+
+        }
+        ubicacion = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location locEmpleado = ubicacion.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        Call<Centros> call = llamadaFichaje().solicitarCentro(centro);
+
+        call.enqueue(new Callback<Centros>() {
+            @Override
+            public void onResponse(Call<Centros> call, Response<Centros> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(FotoActivity.this, "Error al geolocalizar", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Centros centroObtenido = new Centros();
+                centroObtenido = response.body();
+
+                Location locCentro = new Location("providerNa");
+                locCentro.setLatitude(centroObtenido.getLatitud());
+                locCentro.setLongitude(centroObtenido.getLongitud());
+
+                if(ubicacion!=null) {
+                    Log.d("Latitud", String.valueOf(locEmpleado.getLatitude()));
+                    Log.d("Longitud", String.valueOf(locEmpleado.getLongitude()));
+
+                }
+                distancia = locEmpleado.distanceTo(locCentro);
+                Log.d("distancia",String.valueOf(distancia));
+            }
+
+            @Override
+            public void onFailure(Call<Centros> call, Throwable t) {
+
+            }
+        });
+
+
 
     }
 

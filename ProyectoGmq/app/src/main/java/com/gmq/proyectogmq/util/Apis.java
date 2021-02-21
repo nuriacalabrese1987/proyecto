@@ -15,6 +15,9 @@ public class Apis {
     public static EmpleadosService llamada() {
         return RetrofitService.getCliente(URL_EMPLEADOS).create(EmpleadosService.class);
     }
+    public static FichajesService llamadaFichaje() {
+        return RetrofitService.getCliente(URL_FICHAJES).create(FichajesService.class);
+    }
 
     //Metodo para realizar fichaje
     public static FichajesService hacerFichaje() {

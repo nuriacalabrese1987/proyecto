@@ -12,6 +12,7 @@ import spring.proyecto.gmq.back.models.entity.Nominas;
 @Service
 public interface IEmpleadosService {
 	
+
 	public List<Empleados> listar();
 
 	public Empleados findById(Long id);
@@ -23,5 +24,6 @@ public interface IEmpleadosService {
 	public Boolean getLogin(String telefono, String token);
 
 	public Boolean solicitarToken(String telefono);
+
 	
 }
