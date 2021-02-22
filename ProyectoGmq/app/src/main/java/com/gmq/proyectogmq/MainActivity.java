@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
     DrawerLayout drawer;
     String urlImagen;
 
+    private Typeface Mont;
+    private Typeface NewYork;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +65,29 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Creamos las fuentes
+        String fuente1 = "fuentes/coolvetica_titulo.ttf";
+        this.Mont=  Typeface.createFromAsset(getAssets(), fuente1);
+        String fuente2 = "fuentes/coolvetica_fuente.ttf";
+        this.NewYork = Typeface.createFromAsset(getAssets(), fuente2);
+
         textBienvenida = findViewById(R.id.textBienvenida);
+        textBienvenida.setTypeface(Mont);
+
         textNombre = findViewById(R.id.textNombre);
+        textNombre.setTypeface(NewYork);
+
         textoDireccion = findViewById(R.id.textDireccion);
+        textoDireccion.setTypeface(NewYork);
+
         textTfno = findViewById(R.id.textTelefono);
+        textTfno.setTypeface(NewYork);
+
         textoDepartamento = findViewById(R.id.textDepartamento);
+        textoDepartamento.setTypeface(NewYork);
+
         textoCentro = findViewById(R.id.textCentro);
+        textoCentro.setTypeface(NewYork);
 
         imagenUser = findViewById(R.id.imagenUser);
 
@@ -84,7 +105,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-    navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
@@ -187,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
     String telefono = null;
     String departamento= null;
     String centro= null;
-    String url = null;
+    //String url = null;
     Bitmap imagen = null;
         conection = new dbConnection(getApplicationContext(), Apis.TABLA_EMPLEADO,null,1);
         SQLiteDatabase db = conection.getReadableDatabase();
@@ -201,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
             telefono = cursor.getString(4);
             departamento = cursor.getString(5);
             centro = cursor.getString(6);
-            url = cursor.getString(7);
+            //url = cursor.getString(7);
             urlImagen = cursor.getString(7);
 
         }
@@ -210,11 +233,22 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
         LoadImage loadImage = new LoadImage(imagenUser);
         loadImage.execute(urlImagen);
 
+
         textBienvenida.setText("Bienvenido de nuevo " + bienvenida + ",\nA continuación tiene su infromación mas reciente!");
+
+
         textNombre.setText("Nombre del empleado:\n " + nombre);
+
+
         textoDireccion.setText("Direccion de residencia:\n " + direccion);
+
+
         textTfno.setText("Telefono de contacto:\n " + telefono );
+
+
         textoDepartamento.setText("Numero de departamento:\n " + departamento);
+
+
         textoCentro.setText("Numero de centro:\n " + centro);
 
 

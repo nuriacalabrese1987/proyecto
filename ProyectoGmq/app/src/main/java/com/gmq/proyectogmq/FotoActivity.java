@@ -15,9 +15,16 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.FichajesService;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.ByteArrayOutputStream;
 
@@ -26,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FotoActivity extends AppCompatActivity {
-    //Variables relacionadas al xml
+    //Variables
     private TextView tv1, tv2, tv3, tvEstado;
     private EditText et1;
     private Button botonCamara, botonNomina;
@@ -44,6 +51,8 @@ public class FotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foto);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         tv1 = findViewById(R.id.textTitulo);
         tv2 = findViewById(R.id.textInfo);
@@ -66,6 +75,8 @@ public class FotoActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     @Override
