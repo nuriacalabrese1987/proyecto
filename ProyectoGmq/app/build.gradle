@@ -48,4 +48,6 @@ dependencies {
     //Dependencias geoloc y biometria
     implementation 'androidx.biometric:biometric:1.0.1'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
+    //Dependencia vista imageView
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
