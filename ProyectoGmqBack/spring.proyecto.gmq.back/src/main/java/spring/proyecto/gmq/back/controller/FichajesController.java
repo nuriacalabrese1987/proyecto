@@ -100,13 +100,4 @@ public class FichajesController {
 		}	
 		
 	}
-	
-	//Metodo seleccion del centro
-	@GetMapping("hacerFichaje/{numCentro}")
-	public Centros getLatLongCentro(@PathVariable int numCentro){
-		Centros centro = centroService.findCentroById((long)numCentro);
-		
-		return centro;
-		
-	}
 }
