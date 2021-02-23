@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
     Empleados empleado;
     private AppBarConfiguration mAppBarConfiguration;
     TextView textBienvenida, textNombre, textTfno, textoDepartamento, textoCentro, textoDireccion;
+
     ImageView imagenUser;
     dbConnection conection;
     DrawerLayout drawer;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
         this.Mont=  Typeface.createFromAsset(getAssets(), fuente1);
         String fuente2 = "fuentes/coolvetica_fuente.ttf";
         this.NewYork = Typeface.createFromAsset(getAssets(), fuente2);
+
+
 
         textBienvenida = findViewById(R.id.textBienvenida);
         textBienvenida.setTypeface(Mont);
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            Intent intent = new Intent(MainActivity.this, BienvenidaActivity.class);
             startActivity(intent);
 
             return true;

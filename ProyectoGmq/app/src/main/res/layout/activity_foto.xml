@@ -15,17 +15,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
-        android:textSize="20dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:text="¡Hora de fichar!"
-
+        android:background="#77FFFFFF"
         android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/textInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:textSize="25dp"
+        android:background="#77FFFFFF"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColor="@color/black"
@@ -35,7 +38,9 @@
         android:id="@+id/textInstrucciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:textSize="25dp"
+        android:background="#77FFFFFF"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textColor="@color/black"
@@ -45,20 +50,21 @@
         android:id="@+id/telefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
-        android:textColor="@color/black"
-        android:hint="Introduzca su número de télefono para fichar"
-        android:textColorHint="@color/black"
         android:ems="8"
-        android:inputType="textPersonName" />
+
+        android:hint="Introduzca su número de télefono."
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" />
 
     <TextView
         android:id="@+id/textResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:textSize="35dp"
         android:visibility="invisible"
@@ -68,14 +74,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:text="Fichar" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="279dp"
-        android:layout_height="235dp"
+        android:layout_width="179dp"
+        android:layout_height="135dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/logo" />
 

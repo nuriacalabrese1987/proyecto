@@ -3,10 +3,12 @@ package com.gmq.proyectogmq;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,6 +41,7 @@ public class NominasActivity extends AppCompatActivity {
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,7 @@ public class NominasActivity extends AppCompatActivity {
         jsnTxt = findViewById(R.id.jsonText);
         botonera = findViewById(R.id.Botonera);
 
-
+        lp.setMargins(3, 35, 3, 5);
 
 
         botonNomina.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +93,14 @@ public class NominasActivity extends AppCompatActivity {
                     //Bucle para crear botones
                     for (int i = 0; i < numBotones; i++) {
                         Button button = new Button(NominasActivity.this);
+                        //button.setBackgroundColor(Color.parseColor("#00843D"));
                         button.setLayoutParams(lp);
+                        button.setBackgroundColor(Color.parseColor("#00843D"));
                         //Asignamos texto al boton
                         button.setText("VER NOMINA DE: " + obtenerMes(nom.getFecha().getMonth()));
+
+
+
                         botonera.addView(button);
 
                         //Asignamos metodo onClick

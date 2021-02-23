@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -56,6 +57,11 @@ public class FotoActivity extends AppCompatActivity  {
     String url="";
     String centro;
 
+
+    private Typeface Mont;
+    private Typeface NewYork;
+    private Typeface Alphakind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +71,28 @@ public class FotoActivity extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tv1 = findViewById(R.id.textTitulo);
-        tv2 = findViewById(R.id.textInfo);
-        tv3 = findViewById(R.id.textInstrucciones);
-        tvEstado = findViewById(R.id.textResult);
-        et1 = findViewById(R.id.telefono);
+        //Creamos las fuentes
+        String fuente1 = "fuentes/coolvetica_titulo.ttf";
+        this.Mont=  Typeface.createFromAsset(getAssets(), fuente1);
+        String fuente2 = "fuentes/Alphakind.ttf";
+        this.Alphakind = Typeface.createFromAsset(getAssets(), fuente2);
+        String fuente3 = "fuentes/coolvetica_fuente.ttf";
+        this.NewYork = Typeface.createFromAsset(getAssets(), fuente3);
 
+        tv1 = findViewById(R.id.textTitulo);
+        tv1.setTypeface(Mont);
+
+        tv2 = findViewById(R.id.textInfo);
+        tv2.setTypeface(NewYork);
+
+        tv3 = findViewById(R.id.textInstrucciones);
+        tv3.setTypeface(NewYork);
+
+        tvEstado = findViewById(R.id.textResult);
+        tvEstado.setTypeface(Alphakind);
+
+        et1 = findViewById(R.id.telefono);
+        et1.setTypeface(Alphakind);
         localizacion();
         botonCamara = findViewById(R.id.botonCamara);
 
@@ -178,7 +200,7 @@ public class FotoActivity extends AppCompatActivity  {
                     System.out.println("*********************CARAS IGUALES");
                     System.out.println(res);
 
-                    tvEstado.setBackgroundColor(Color.GREEN);
+                    tvEstado.setBackgroundColor(Color.parseColor("#00843D"));
                     tvEstado.setTextColor(Color.WHITE);
                     tvEstado.setText("¡Fichaje correcto!");
                     tvEstado.setVisibility(View.VISIBLE);
