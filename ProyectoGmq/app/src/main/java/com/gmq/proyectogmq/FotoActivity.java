@@ -160,7 +160,7 @@ public class FotoActivity extends AppCompatActivity  {
         System.out.println("-------------------Has entrado en el metodo----------------------");
         System.out.println(telefono); //Comprobacion de que el tfno entra bien
         service = Apis.hacerFichaje();
-        Call<Boolean> call = service.hacerFichaje(telefono, "40.425330991728416", "-3.6768286461484427", Base64.encodeToString(ImagenBytes, Base64.NO_WRAP));
+        Call<Boolean> call = service.hacerFichaje(telefono, distancia, Base64.encodeToString(ImagenBytes, Base64.NO_WRAP));
         System.out.println(Base64.encodeToString(ImagenBytes, Base64.NO_WRAP));
         call.enqueue(new Callback<Boolean>() {
             @Override

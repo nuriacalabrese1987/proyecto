@@ -14,10 +14,9 @@ public interface FichajesService {
      */
 
 
-    @POST("hacerFichaje/{telefono}/{latitud}/{longitud}")
+    @POST("hacerFichaje/{telefono}/{distancia}")
     Call<Boolean> hacerFichaje(@Path("telefono") String telefono,
-                               @Path("latitud") String latitud,
-                               @Path("longitud") String longitud,
+                               @Path("distancia") float distancia,
                                @Body String imagen);
 
     @GET("hacerFichaje/{centro}")
