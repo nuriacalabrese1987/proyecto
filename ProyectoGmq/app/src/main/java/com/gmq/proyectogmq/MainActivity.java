@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.gmq.proyectogmq.model.Empleados;
 import com.gmq.proyectogmq.model.Fichajes;
+import com.gmq.proyectogmq.ui.gallery.GalleryFragment;
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.dbConnection;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -170,6 +171,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
             startActivity(intent);
         } else if(id == R.id.navNominas) {
             Intent intent = new Intent(MainActivity.this, NominasActivity.class);
+            startActivity(intent);
+        } else if(id == R.id.navServicios){
+            Intent intent = new Intent(MainActivity.this, ServiciosActivity.class);
             startActivity(intent);
         } else if (id == R.id.navSalir){
             Salir(this);
