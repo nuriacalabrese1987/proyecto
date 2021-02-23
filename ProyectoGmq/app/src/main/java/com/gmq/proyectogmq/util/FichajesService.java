@@ -20,7 +20,7 @@ public interface FichajesService {
                                @Path("longitud") String longitud,
                                @Body String imagen);
 
-    @GET("hacerFichaje/{numCentro}")
+    @GET("hacerFichaje/{centro}")
     Call<Centros> solicitarCentro(@Path("centro") String centro);
 
 }
