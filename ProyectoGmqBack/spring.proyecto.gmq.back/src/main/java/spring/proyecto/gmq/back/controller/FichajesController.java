@@ -46,10 +46,9 @@ public class FichajesController {
 	}
 	
 	
-	@PostMapping("/hacerFichaje/{telefono}/{latitud}/{longitud}")
+	@PostMapping("/hacerFichaje/{telefono}/{distancia}")
 	public Boolean comprobarCara (@PathVariable String telefono, 
-			@PathVariable String latitud, 
-			@PathVariable String longitud, 
+			@PathVariable float distancia, 
 			@RequestBody String imagen){
 		
 		Map<String, Object> response = new HashMap<>();
@@ -75,8 +74,8 @@ public class FichajesController {
 		Date date = new Date();
 		//date.getTime();
 		java.sql.Timestamp fecha = new java.sql.Timestamp(date.getTime());
-		
-		if (result == true && lat == Double.parseDouble(latitud) && longi == Double.parseDouble(longitud)) {
+		System.out.println(distancia);
+		if (result == true  && distancia <= 150) {
 			
 
 			System.out.println("\n\nLas caras son iguales");

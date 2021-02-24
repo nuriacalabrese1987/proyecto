@@ -3,10 +3,12 @@ package com.gmq.proyectogmq;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.NominasService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,6 +41,7 @@ public class NominasActivity extends AppCompatActivity {
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +52,7 @@ public class NominasActivity extends AppCompatActivity {
         jsnTxt = findViewById(R.id.jsonText);
         botonera = findViewById(R.id.Botonera);
 
-
+        lp.setMargins(3, 35, 3, 5);
 
 
         botonNomina.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +93,14 @@ public class NominasActivity extends AppCompatActivity {
                     //Bucle para crear botones
                     for (int i = 0; i < numBotones; i++) {
                         Button button = new Button(NominasActivity.this);
+                        //button.setBackgroundColor(Color.parseColor("#00843D"));
                         button.setLayoutParams(lp);
+                        button.setBackgroundColor(Color.parseColor("#00843D"));
                         //Asignamos texto al boton
-                        button.setText("VER NOMINA DE: " + nom.getFecha());
+                        button.setText("VER NOMINA DE: " + obtenerMes(nom.getFecha().getMonth()));
+
+
+
                         botonera.addView(button);
 
                         //Asignamos metodo onClick
@@ -125,6 +134,49 @@ public class NominasActivity extends AppCompatActivity {
                 Log.e("Error", t.getMessage());
             }
         });
+    }
+
+    private String obtenerMes(int fecha) {
+        String mes = null;
+        switch (fecha) {
+            case 0:
+                mes = "Enero";
+                break;
+            case 1:
+                mes = "Febrero";
+                break;
+            case 2:
+                mes = "Marzo";
+                break;
+            case 3:
+                mes = "Abril";
+                break;
+            case 4:
+                mes = "Mayo";
+                break;
+            case 5:
+                mes = "Junio";
+                break;
+            case 6:
+                mes = "Julio";
+                break;
+            case 7:
+                mes = "Agosto";
+                break;
+            case 8:
+                mes = "Septiembre";
+                break;
+            case 9:
+                mes = "Octubre";
+                break;
+            case 10:
+                mes = "Noviembre";
+                break;
+            case 11:
+                mes = "Diciembre";
+                break;
+        }
+        return mes;
     }
 
     private void descargarNomina(String url) {
