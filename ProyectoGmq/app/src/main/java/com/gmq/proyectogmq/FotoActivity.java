@@ -29,6 +29,7 @@ import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.FichajesService;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +39,7 @@ import static com.gmq.proyectogmq.util.Apis.llamada;
 import static com.gmq.proyectogmq.util.Apis.llamadaFichaje;
 
 
-public class FotoActivity extends AppCompatActivity  {
+public class FotoActivity extends AppCompatActivity implements Serializable {
     //Variables
     private TextView tv1, tv2, tv3, tvEstado;
     private EditText et1;
