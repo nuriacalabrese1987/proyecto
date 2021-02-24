@@ -5,19 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/fondo_servie"
     tools:context=".ServiciosActivity">
     <TextView
         android:id="@+id/textServicios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="SERVICIOS DISPONIBLES"
         android:textAlignment="center"/>
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -61,11 +66,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_gravity="center">
                 <ImageView
-                    android:id="@+id/imageSupercor"
+                    android:id="@+id/imageSuper"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/supercor" />
+                    android:src="@drawable/supermercado" />
 
                 <ImageView
                     android:id="@+id/imageBricor"
@@ -82,12 +87,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_gravity="center">
-                <ImageView
-                    android:id="@+id/imageSfera"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/sfera" />
 
                 <ImageView
                     android:id="@+id/imageSeguros"
@@ -95,7 +94,15 @@
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/seguros" />
+
+                <ImageView
+                    android:id="@+id/imageSfera"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sfera" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,6 +125,7 @@
                     android:layout_weight="1"
                     android:src="@drawable/optica" />
             </LinearLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
