@@ -18,21 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGmq"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ServiciosActivity"></activity>
-        <activity android:name=".NominasActivity" />
+        <activity android:name=".ServiciosActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".NominasActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.ProyectoGmq.NoActionBar" />
+            android:theme="@style/Theme.ProyectoGmq.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".FotoActivity"
-            android:theme="@style/Theme.ProyectoGmq.NoActionBar" />
+            android:theme="@style/Theme.ProyectoGmq.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.ProyectoGmq.NoActionBar" />
+            android:theme="@style/Theme.ProyectoGmq.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".BienvenidaActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ProyectoGmq.NoActionBar">
+            android:theme="@style/Theme.ProyectoGmq.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
