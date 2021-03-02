@@ -7,28 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/fondo_nomina"
     tools:context=".NominasActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/idEmpleado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Introduce id"
-            android:inputType="textPersonName" />
-
-        <Button
-            android:id="@+id/verNomina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ver nomina" />
-
-    </LinearLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
