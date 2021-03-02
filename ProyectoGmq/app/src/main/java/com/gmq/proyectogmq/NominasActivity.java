@@ -62,6 +62,7 @@ public class NominasActivity extends AppCompatActivity implements Serializable{
         Intent intent = getIntent();
         id_nomina = intent.getStringExtra("id_nomina");
 
+        botonera = findViewById(R.id.Botonera);
         lp.setMargins(3, 35, 3, 5);
 
 
@@ -120,6 +121,7 @@ public class NominasActivity extends AppCompatActivity implements Serializable{
                     numBotones = 1; //Creamos 12 botones
                     //Bucle para crear botones
                     for (int i = 0; i < numBotones; i++) {
+                        System.out.println("Esta creando botones,,,,,,,,,,,,,,,,,,,,,");
                         Button button = new Button(NominasActivity.this);
                         //button.setBackgroundColor(Color.parseColor("#00843D"));
                         button.setLayoutParams(lp);
