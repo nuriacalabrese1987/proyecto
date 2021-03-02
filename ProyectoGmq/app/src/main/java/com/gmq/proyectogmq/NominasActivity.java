@@ -1,12 +1,21 @@
 package com.gmq.proyectogmq;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +27,7 @@ import android.widget.Toast;
 import com.gmq.proyectogmq.model.Nominas;
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.NominasService;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,9 +38,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NominasActivity extends AppCompatActivity implements Serializable {
+public class NominasActivity extends AppCompatActivity implements Serializable{
 
     TextView jsnTxt;
+    private AppBarConfiguration mAppBarConfiguration;
+    DrawerLayout drawer;
     static int numBotones = 0;
     LinearLayout botonera;
     List<Nominas> listaNom = new ArrayList<>();
@@ -46,10 +58,9 @@ public class NominasActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nominas);
+
         Intent intent = getIntent();
         id_nomina = intent.getStringExtra("id_nomina");
-        jsnTxt = findViewById(R.id.jsonText);
-        botonera = findViewById(R.id.Botonera);
 
         lp.setMargins(3, 35, 3, 5);
 
@@ -60,6 +71,33 @@ public class NominasActivity extends AppCompatActivity implements Serializable {
             getNominas(Integer.parseInt(id_nomina));
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(NominasActivity.this, BienvenidaActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+        if (id == R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void getNominas(int id) {
         System.out.println(id);
@@ -172,4 +210,5 @@ public class NominasActivity extends AppCompatActivity implements Serializable {
     private void descargarNomina(String url) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
+
 }

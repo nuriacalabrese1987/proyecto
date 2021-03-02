@@ -135,6 +135,13 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
 
             return true;
         }
+        if (id == R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
