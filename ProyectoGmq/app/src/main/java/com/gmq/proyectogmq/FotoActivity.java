@@ -57,6 +57,7 @@ public class FotoActivity extends AppCompatActivity implements Serializable {
     FichajesService service;
     String url="";
     String centro;
+    String id;
 
 
     private Typeface Mont;
@@ -69,6 +70,7 @@ public class FotoActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_foto);
         Intent intent = getIntent();
         centro = intent.getStringExtra("centro");
+        id = intent.getStringExtra("tel_foto");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
     DrawerLayout drawer;
     String urlImagen;
     String cent;
+    String id_nomina;
+    String tel_foto;
 
     private Typeface Mont;
     private Typeface NewYork;
@@ -168,9 +170,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
         } else if (id == R.id.navFichaje) {
             Intent intent = new Intent(MainActivity.this, FotoActivity.class);
             intent.putExtra("centro",cent);
+            intent.putExtra("tel_foto", tel_foto );
             startActivity(intent);
         } else if(id == R.id.navNominas) {
             Intent intent = new Intent(MainActivity.this, NominasActivity.class);
+            intent.putExtra("id_nomina",id_nomina);
             startActivity(intent);
         } else if(id == R.id.navServicios){
             Intent intent = new Intent(MainActivity.this, ServiciosActivity.class);
@@ -234,6 +238,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
             departamento = cursor.getString(5);
             centro = cursor.getString(6);
             cent = cursor.getString(6);
+            id_nomina = cursor.getString(0);
+            tel_foto = cursor.getString(4);
+
             //url = cursor.getString(7);
             urlImagen = cursor.getString(7);
 

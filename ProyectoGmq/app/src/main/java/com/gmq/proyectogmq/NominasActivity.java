@@ -19,6 +19,7 @@ import com.gmq.proyectogmq.model.Nominas;
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.NominasService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,16 +28,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NominasActivity extends AppCompatActivity {
+public class NominasActivity extends AppCompatActivity implements Serializable {
 
-    EditText idEmpleado;
-    Button botonNomina;
     TextView jsnTxt;
     static int numBotones = 0;
     LinearLayout botonera;
     List<Nominas> listaNom = new ArrayList<>();
     List<String> Nomina;
     NominasService service;
+    String id_nomina;
     //Propiedades de los botones
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -46,29 +46,19 @@ public class NominasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nominas);
-
-        idEmpleado = findViewById(R.id.idEmpleado);
-        botonNomina = findViewById(R.id.verNomina);
+        Intent intent = getIntent();
+        id_nomina = intent.getStringExtra("id_nomina");
         jsnTxt = findViewById(R.id.jsonText);
         botonera = findViewById(R.id.Botonera);
 
         lp.setMargins(3, 35, 3, 5);
 
 
-        botonNomina.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int id;
-
-                if (idEmpleado.getText().toString().isEmpty()) {
-                    Toast.makeText(NominasActivity.this, "Espabila", Toast.LENGTH_SHORT).show();
-                } else {
-                    id = Integer.parseInt(idEmpleado.getText().toString());
-                    getNominas(id);
-                }
-
-            }
-        });
+        if (id_nomina.isEmpty()) {
+            Toast.makeText(NominasActivity.this, "No hay nominas disponibles", Toast.LENGTH_SHORT).show();
+        } else {
+            getNominas(Integer.parseInt(id_nomina));
+        }
     }
 
     public void getNominas(int id) {
