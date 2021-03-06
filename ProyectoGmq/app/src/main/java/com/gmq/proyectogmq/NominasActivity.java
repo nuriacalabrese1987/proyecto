@@ -40,7 +40,7 @@ import retrofit2.Response;
 
 public class NominasActivity extends AppCompatActivity implements Serializable{
 
-    TextView jsnTxt;
+
     private AppBarConfiguration mAppBarConfiguration;
     DrawerLayout drawer;
     static int numBotones = 0;
@@ -61,9 +61,7 @@ public class NominasActivity extends AppCompatActivity implements Serializable{
 
         Intent intent = getIntent();
         id_nomina = intent.getStringExtra("id_nomina");
-
         lp.setMargins(3, 35, 3, 5);
-
 
         if (id_nomina.isEmpty()) {
             Toast.makeText(NominasActivity.this, "No hay nominas disponibles", Toast.LENGTH_SHORT).show();
