@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.gmq.proyectogmq.model.Nominas;
 import com.gmq.proyectogmq.util.Apis;
 import com.gmq.proyectogmq.util.NominasService;
+import com.gmq.proyectogmq.util.dbConnection;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
@@ -49,6 +51,7 @@ public class NominasActivity extends AppCompatActivity implements Serializable{
     List<String> Nomina;
     NominasService service;
     String id_nomina;
+    dbConnection conection;
     //Propiedades de los botones
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -85,6 +88,9 @@ public class NominasActivity extends AppCompatActivity implements Serializable{
 
         if (id == R.id.action_settings) {
             Intent intent = new Intent(NominasActivity.this, BienvenidaActivity.class);
+            conection = new dbConnection(getApplicationContext(), Apis.TABLA_EMPLEADO,null,1);
+            SQLiteDatabase db = conection.getReadableDatabase();
+            db.delete(Apis.TABLA_EMPLEADO, null, null);
             startActivity(intent);
 
             return true;

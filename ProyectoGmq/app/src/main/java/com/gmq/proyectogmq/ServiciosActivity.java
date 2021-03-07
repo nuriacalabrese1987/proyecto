@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,10 +14,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gmq.proyectogmq.util.Apis;
+import com.gmq.proyectogmq.util.dbConnection;
+
 public class ServiciosActivity extends AppCompatActivity {
 
     TextView servicios, serviciosdos;
     ImageView hipercor, corte, supermercado, bricor, sfera, seguros, informatica, optica;
+    dbConnection conection;
+
+
     private Typeface coolvetica;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +141,9 @@ public class ServiciosActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             Intent intent = new Intent(ServiciosActivity.this, BienvenidaActivity.class);
+            conection = new dbConnection(getApplicationContext(), Apis.TABLA_EMPLEADO,null,1);
+            SQLiteDatabase db = conection.getReadableDatabase();
+            db.delete(Apis.TABLA_EMPLEADO, null, null);
             startActivity(intent);
 
             return true;

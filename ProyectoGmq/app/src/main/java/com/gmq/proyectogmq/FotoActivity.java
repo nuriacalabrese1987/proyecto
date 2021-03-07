@@ -74,8 +74,7 @@ public class FotoActivity extends AppCompatActivity implements Serializable {
         Intent intent = getIntent();
         centro = intent.getStringExtra("centro");
         id = intent.getStringExtra("tel_foto");
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         //Creamos las fuentes
         String fuente1 = "fuentes/coolvetica_titulo.ttf";

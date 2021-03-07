@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, Nav
 
         if (id == R.id.action_settings) {
             Intent intent = new Intent(MainActivity.this, BienvenidaActivity.class);
+            conection = new dbConnection(getApplicationContext(), Apis.TABLA_EMPLEADO,null,1);
+            SQLiteDatabase db = conection.getReadableDatabase();
+            db.delete(Apis.TABLA_EMPLEADO, null, null);
             startActivity(intent);
 
             return true;
