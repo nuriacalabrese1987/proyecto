@@ -1,15 +1,15 @@
 package com.gmq.proyectogmq.util;
 
 public class Apis {
-    public static String URL_EMPLEADOS = "http://192.168.1.116:1635/empleados/";
+    public static String URL_EMPLEADOS = "http://192.168.1.53:1635/empleados/";
 
-    public static String URL_NOMINAS= "http://192.168.1.116:1635/nominas/";
+    public static String URL_NOMINAS= "http://192.168.1.53:1635/nominas/";
 
     public static String URL_CENTROS="";
 
     public static String URL_DEPARTAMENTOS="";
 
-    public static String URL_FICHAJES="http://192.168.1.116:1635/fichajes/";
+    public static String URL_FICHAJES="http://192.168.1.53:1635/fichajes/";
 
 
     public static EmpleadosService llamada() {
