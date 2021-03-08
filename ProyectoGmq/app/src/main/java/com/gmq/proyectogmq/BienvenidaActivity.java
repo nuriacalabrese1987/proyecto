@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 public class BienvenidaActivity extends AppCompatActivity{
 
 
-    int token=0;
+    int token= 0;
     dbConnection conection;
 
     @Override
